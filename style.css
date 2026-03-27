@@ -1,0 +1,545 @@
+ /* الـ Loader يغطي الشاشة كاملة */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #FDD336; /* اللون الأصفر اللي طلبتي */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 9999;
+}
+
+/* ستايل الحروف A و W (حركة سريعة ومقادة) */
+.A, .W {
+    font-family: 'Arial Black', sans-serif; 
+    font-weight: 900;
+    font-size: 40px;
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid black; 
+    box-shadow: 8px 8px 0px black;
+    /* زربنا الأنميشن لـ 0.8s باش ما تجيش ثقيلة */
+    animation: spinBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+}
+
+.A { background-color: #F75D8E; color: black; margin-left: 15px; }
+.W { background-color: #56D5ED; color: black; }
+
+/* ستايل مربعات اللوغوات (مايلين وماكيدوروش) */
+.logo-box {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 3px solid black;
+    box-shadow: 4px 4px 0px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: black;
+    opacity: 0;
+    border-radius: 8px;
+    /* أنميشن الظهور فقط */
+    animation: justFade 0.5s ease-out forwards;
+    animation-delay: 0.6s; /* كيبانو مباشرة مورا الحروف */
+}
+
+/* الميلان (Tilt) ديال كل واحد */
+.top-left { 
+    top: 40px; left: 40px; 
+    background-color: #56D5ED; 
+    transform: rotate(-15deg); /* مايل لليسر */
+}
+.top-right { 
+    top: 40px; right: 40px; 
+    background-color: #F75D8E; 
+    transform: rotate(12deg); /* مايل لليمن */
+}
+.bottom-left { 
+    bottom: 60px; left: 40px; 
+    background-color: #FDD336; 
+    transform: rotate(-10deg); /* مايل شوية */
+}
+
+/* أنميشن الحروف */
+@keyframes spinBounce {
+    0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+    100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+/* أنميشن اللوغوات (ظهور سكاتي) */
+@keyframes justFade {
+    to { opacity: 1; }
+}
+
+/* بار التحميل */
+.loader-box {
+    width: 200px;
+    height: 12px;
+    background: white;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.bar {
+    width: 0%;
+    height: 100%;
+    background: black;
+    animation: loading 1.5s linear forwards; /* زربنا التحميل لـ 1.5s */
+}
+
+@keyframes loading {
+    to { width: 100%; }
+}
+
+  body {
+            margin: 0;
+            padding: 0;
+            /* حيدنا height: 100vh باش السكرول يخدم عادي */
+            min-height: 100vh;
+            background-color: #d1d1d1; /* لون الخلفية اللي ورا الورقة */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+         .paper-sheet {
+    /* العرض والمارجين اللي حددنا قبل */
+    width: calc(100% - 140px); 
+    min-height: 100vh; 
+    margin-top: 20px; 
+    margin-bottom: 50px;
+    
+    background-color: #fcfcfc;
+    position: relative;
+    
+    /* إطار كحل غليظ شوية */
+    border: 3px solid #000; 
+
+    /* هادا هو الـ Shadow الحاد (Sharp Shadow) */
+    /* حركناه 10px لليمن و 10px لتحت بلا Blur */
+    box-shadow: 10px 10px 0px #000;
+
+    /* المربعات الصغار والشفافين */
+    background-image: 
+        linear-gradient(rgba(0, 100, 250, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 100, 250, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    padding: 20px; 
+    box-sizing: border-box;
+}
+ header {
+    background-color: #FDD336;
+    width: 100%;
+    height: 55px; /* زدت ف الطول شوية باش يهز الـ Button مرتاح */
+    border: 3px solid #000; 
+    box-shadow: 6px 5px 0px #000;
+    margin-bottom: 10px; 
+    box-sizing: border-box;
+
+    /* هاد السطر كيدفع المحتوى لداخل بـ 5px من الفوق والتحت و 10px من الجناب */
+    padding: 10px 10px;
+    
+    /* باش الـ button يجي موسط عمودياً */
+    display: flex;
+    align-items: center;
+}
+
+  .header {
+    /* الخط الجديد */
+    font-family: 'Archivo Black', sans-serif; 
+    font-size: 18px; /* صغرتو باش يجي لداخل حيت 40px كبيرة بزاف */
+    text-transform: uppercase; /* كيرد الحروف كبار كيجيو أحسن */
+    
+    width: 40px; 
+    height: 40px;
+    /* الستايل اللي ديجا عندك */
+    margin-left: 15px;
+    margin-top: 2px;
+    padding: 2px 12px; /* زدت فالعرض ونقصت فالطول */
+    cursor: pointer;
+    background-color: #5BD8EE;
+     border: 2.5px solid black;
+    box-shadow: 3px 3px 0px #000;
+    margin-right: 470px;
+    /* باش الكلام يجي الوسط بالضبط */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s;
+}
+
+/* حركة فاش كتضغط على الزر */
+.header:active {
+    box-shadow: 0px 0px 0px #000;
+    transform: translate(3px, 3px);
+}
+
+   nav {
+    display: flex;
+    align-items: center; /* باش يجي كلشي موسط عمودياً */
+    
+    /* هادا هو السر: 30px فراغ بين كل عنصر وعنصر */
+    gap: 30px; 
+    
+    width: 100%;
+    /* باش يبعدو شوية على الحافة ديال الـ Header */
+    padding-left: 10px; 
+}
+
+/* تعديل خفيف للروابط باش يبانو أوضح */
+ nav a {
+    text-decoration: none;
+    color: #000;
+    
+    /* الخط المقترح: Montserrat Extra Bold Italic */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic; /* هادي هي اللي كتميل الخط */
+    
+    font-size: 16px;
+    text-transform: uppercase;
+    position: relative;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* حركة "Elastic" زوينة */
+    display: inline-block;
+}
+
+/* تأثير الـ Hover (السطر اللي صاوبنا + ميلان زيادة) */
+nav a:hover {
+    color: #000;
+    /* فاش كتدوز الفارة، الكلمة كتميل كتر وكطلع شوية */
+    transform: skewX(-10deg) translateY(-3px); 
+}
+
+/* السطر اللي كيبان تحت الكلمة */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 4px; /* غلظنا السطر شوية باش يجي مع الخط الغليظ */
+    background-color: #73410e; /* لون الزر الأزرق باش يجي التناسق */
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+header {
+    background-color: #FDD336;
+    width: 100%;
+    height: 55px; /* زدت شوية ف الطول باش يجي كلشي مرتاح */
+    border: 3px solid #000; 
+    box-shadow: 6px 5px 0px #000;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 0 15px; /* فراغ من الجناب لداخل */
+}
+
+/*icon*/
+
+ .icon {
+    /* الخط الجديد */
+    font-family: 'Archivo Black', sans-serif; 
+    font-size: 18px; /* صغرتو باش يجي لداخل حيت 40px كبيرة بزاف */
+    text-transform: uppercase; /* كيرد الحروف كبار كيجيو أحسن */
+    
+    width: 40px; 
+    height: 40px;
+    /* الستايل اللي ديجا عندك */
+    margin-left: 15px;
+    margin-top: 2px;
+    padding: 2px 12px; /* زدت فالعرض ونقصت فالطول */
+    cursor: pointer;
+    background-color: #5BD8EE;
+     border: 2.5px solid black;
+    box-shadow: 3px 3px 0px #000;
+    margin-right: 470px;
+    /* باش الكلام يجي الوسط بالضبط */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s;
+}
+
+/* حركة فاش كتضغط على الزر */
+.icon:active {
+    box-shadow: 0px 0px 0px #000;
+    transform: translate(3px, 3px);
+}
+
+ .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px; 
+    
+    /* 1. الفراغ من الفوق (زدتو لـ 100px باش يبان الهبوط واضح) */
+    margin-top: 100px;  
+    
+    /* 2. الفراغ من اليسار باش ما يبقاش لاصق ف الحافة */
+    padding-left: 40px; 
+    
+    max-width: 50%;
+}
+
+.hy {
+    font-family: peralta;
+    font-weight: 450;
+    font-size: 22px; 
+    color: #5BD8EE;
+    margin: 0;
+    
+    /* 3. هاد السطر هو اللي كيدير الفراغ بين Hy there والسمية */
+    margin-bottom: 25px; 
+    
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    font-family: henny penny;
+    font-weight: 500;
+    font-size: 52px; /* كبرتها شوية باش تجي ناضية */
+    color: #000;
+    margin: 0;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+}
+
+.description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666;
+    /* فراغ بين السمية والوصف */
+    margin-top: 25px; 
+    line-height: 1.6;
+}
+
+/*swaap imogi*/
+
+/* في الأول الـ Emojis مخفيين ومكيتحركوش */
+.emoji-item {
+    position: absolute;
+    font-size: 32px;
+    opacity: 0;
+    transform: translateY(45px);
+}
+
+/* هاد الـ Class غانزيدوه بـ JS فاش يسالي الـ Loader */
+.start-anim .emoji-item:nth-child(1) { animation: popInOut 0.25s forwards; animation-delay: 0.1s; }
+.start-anim .emoji-item:nth-child(2) { animation: popInOut 0.25s forwards; animation-delay: 0.25s; }
+.start-anim .emoji-item:nth-child(3) { animation: popInOut 0.25s forwards; animation-delay: 0.4s; }
+.start-anim .emoji-item:nth-child(4) { animation: popInOut 0.25s forwards; animation-delay: 0.55s; }
+.start-anim .emoji-item:nth-child(5) { animation: popInOut 0.25s forwards; animation-delay: 0.7s; }
+.start-anim .emoji-item:nth-child(6) { animation: popInOut 0.25s forwards; animation-delay: 0.85s; }
+.start-anim .emoji-item:nth-child(7) { animation: popInOut 0.25s forwards; animation-delay: 1s; }
+.start-anim .emoji-item:nth-child(8) { 
+    animation: popAndStay 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
+    animation-delay: 1.15s; 
+}
+
+/* هاد الـ Keyframes ضروري يكونو كاينين */
+@keyframes popInOut {
+    0% { opacity: 0; transform: translateY(45px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-45px); }
+}
+
+@keyframes popAndStay {
+    0% { opacity: 0; transform: translateY(45px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* الكود ديالك اللي حطيتي هو هاداك، غير تأكد بلي الـ Wrapper كاين */
+.emoji-item {
+    position: absolute;
+    font-size: 32px;
+    opacity: 0;
+    transform: translateY(45px);
+}
+
+.hy {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22px; 
+    color: #5BD8EE;
+    margin: 0;
+    margin-bottom: 25px; 
+
+    /* هاد جوج سطور هما اللي غايجيبو الـ Emojis حدا الكلمة */
+    display: flex;         /* كيرد العناصر (الكلمة والـ wrapper) ف سطر واحد */
+    align-items: center;   /* باش يجي الـ Emoji موسط مع طول الكلمة */
+    gap: 10px;            /* مسافة خفيفة بين "Hi there!" وبين الـ Emojis */
+}
+
+/* تأكد بلي الـ wrapper حتى هو ما واخدش عرض كبير */
+.emoji-wrapper {
+    display: inline-flex;
+    position: relative;
+    width: 40px; 
+    height: 40px;
+    overflow: hidden; 
+    /* حيدنا margin-left حيت خدمنا بـ gap ف الأب */
+}
+
+/*image*/
+ .hero-section {
+    position: relative; /* هادي ضرورية باش التصويرة ما تهربش ليك لراس الصفحة */
+    padding-left: 40px; 
+    margin-top: 100px;
+    width: 100%;
+    /* حيدنا الـ display: flex من هنا نهائياً */
+}
+
+.my-photo {
+    /* هادا هو الساروت: كيهز التصويرة من السطر وكيردها "طايرة" */
+    position: absolute; 
+    
+    /* دابا تحكم فيها بالمليمتر: */
+    right: -450px;    /* شحال بعيدة على اليمين */
+    top: -60px;     /* طلعها ولا هبطها كيف بغيتي (حتى تولي حدا Hi there) */
+    
+    width: 330px;
+    height: 380px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0px #000;
+    border: 3px solid black;
+
+    z-index: 10;
+}
+
+.my-photo img {
+    width: 100%;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0px #5BD8EE;
+}
+
+/* ضروري تعطي عرض محدد للسمية باش ما تضربش ف التصويرة */
+.name, .description {
+    max-width: 500px; 
+}
+  
+.icon-1{
+    width: 30px; 
+    height: 40px;
+    /* الستايل اللي ديجا عندك */
+    margin-left: 15px;
+    margin-top: 2px;
+    padding: 2px 12px; /* زدت فالعرض ونقصت فالطول */
+    cursor: pointer;
+    background-color: #3ec332;
+     border: 2.5px solid black;
+    box-shadow: 3px 3px 0px #000;
+     border-radius: 8px;
+     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 295px;
+    left: 655px;
+    z-index: 20;
+    transform: rotate(10deg);
+     animation: floatAnim 4s ease-in-out infinite;
+}
+
+@keyframes floatAnim {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        /* هنا كطلع بـ 15 بيكسل وتميل شوية باش تبان طبيعية */
+        transform: translateY(-15px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+.icon-2{
+    width: 30px; 
+    height: 40px;
+    /* الستايل اللي ديجا عندك */
+    margin-left: 15px;
+    margin-top: 2px;
+    padding: 2px 12px; /* زدت فالعرض ونقصت فالطول */
+    cursor: pointer;
+    background-color: #FDD336;
+     border: 2.5px solid black;
+    box-shadow: 3px 3px 0px #000;
+     border-radius: 8px;
+     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 110px;
+    left: 985px;
+    z-index: 20;
+    animation: floatAnim 2.3s ease-in-out infinite;
+}
+
+@keyframes floatAnim {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        /* هنا كطلع بـ 15 بيكسل وتميل شوية باش تبان طبيعية */
+        transform: translateY(-15px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.icon-3{
+     width: 30px; 
+    height: 40px;
+    /* الستايل اللي ديجا عندك */
+    margin-left: 15px;
+    margin-top: 2px;
+    padding: 2px 12px; /* زدت فالعرض ونقصت فالطول */
+    cursor: pointer;
+    background-color: #d01f1f;
+     border: 2.5px solid black;
+    box-shadow: 3px 3px 0px #000;
+    color: #fcfcfc;
+     border-radius: 8px;
+     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+     position: relative;
+    bottom: 45px;
+    left: 596px;
+    z-index: 1;
+    transform: rotate(-12deg);
+     animation: floatAnim 3s ease-in-out infinite;
+}
+ @keyframes floatAnim {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        /* هنا كطلع بـ 15 بيكسل وتميل شوية باش تبان طبيعية */
+        transform: translateY(-15px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}

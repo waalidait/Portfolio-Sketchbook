@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .emoji-wrapper {
+    display: inline-flex;
+    position: relative;
+    width: 40px; 
+    height: 40px;
+    overflow: hidden; 
+    margin-left: 12px;
+    vertical-align: middle;
+}
+
+.emoji-item {
+    position: absolute;
+    font-size: 32px;
+    opacity: 0;
+    transform: translateY(45px);
+}
+
+/* --- التوقيت السريع جداً لكل Emoji (كل واحد مورا خوه بـ 0.15s) --- */
+
+.emoji-item:nth-child(1) { animation: popInOut 0.25s forwards; animation-delay: 0.1s; }
+.emoji-item:nth-child(2) { animation: popInOut 0.25s forwards; animation-delay: 0.25s; }
+.emoji-item:nth-child(3) { animation: popInOut 0.25s forwards; animation-delay: 0.4s; }
+.emoji-item:nth-child(4) { animation: popInOut 0.25s forwards; animation-delay: 0.55s; }
+.emoji-item:nth-child(5) { animation: popInOut 0.25s forwards; animation-delay: 0.7s; }
+.emoji-item:nth-child(6) { animation: popInOut 0.25s forwards; animation-delay: 0.85s; }
+.emoji-item:nth-child(7) { animation: popInOut 0.25s forwards; animation-delay: 1s; }
+
+/* الـ Emoji الأخير (اليد 👋) كيطلع فـ 1.15s ويبقى واقـف */
+.emoji-item:nth-child(8) {
+    animation: popAndStay 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 1.15s;
+}
+
+@keyframes popInOut {
+    0% { opacity: 0; transform: translateY(45px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-45px); }
+}
+
+@keyframes popAndStay {
+    0% { opacity: 0; transform: translateY(45px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+ 
+ 
+    </style>
+ </head>
+ <body>
+      <h3 class="hy">
+    Hi there! 
+    <span class="emoji-wrapper">
+        <span class="emoji-item">🎨</span>
+        <span class="emoji-item">🚀</span>
+        <span class="emoji-item">✨</span>
+        <span class="emoji-item">💻</span>
+        <span class="emoji-item">🔥</span>
+        <span class="emoji-item">⚡</span>
+        <span class="emoji-item">🌟</span>
+        <span class="emoji-item">👋</span>
+    </span>
+</h3>
+ </body>
+ </html>
