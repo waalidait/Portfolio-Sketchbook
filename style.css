@@ -1,3 +1,137 @@
+/*dark-mode*/
+/* 1. المخزن ديال الألوان (الوضعية العادية) */
+:root {
+    --bg-outside: #d1d1d1;    /* الخلفية اللي لور كاع */
+    --bg-paper: #fcfcfc;      /* الورقة البيضاء */
+    --text-main: #000000;     /* السمية والكتابة الكحلة */
+    --text-hy: #5BD8EE;       /* اللون الأزرق ديال Hy There */
+    --line-color: rgba(0, 100, 250, 0.04); /* الخيوط الزرقين اللي لوسط */
+    --icon1-bg: #3ec332; /* الأخضر */
+    --icon2-bg: #FDD336; /* الأصفر */
+    --icon3-bg: #d01f1f; /* الأحمر */
+    --icon-text: #000000; 
+    --line-color: rgba(0, 100, 250, 0.04);
+    --fix-bg: rgb(243, 243, 20);
+    --job-bg: #88e0df;
+     --about-bg: #FDD336;
+    --about-text: #000000;
+    --about-border: #000000;
+    --about-shadow: #000000;
+    --about-bg: #FDD336;
+    --about-text: #000000;
+    --about-border: #000000;
+    --about-shadow: 5px 5px 0px #000000;
+    --box-bg: #fcfcfc;        /* في النهار تبقى بيضاء بحال الورقة */
+    --box-shadow: 10px 10px 0px #000000;
+    --header-bg: #FDD336; /* الأصفر ديال النهار */
+    --header-shadow: 6px 5px 0px #000000;
+    --header-shadow: 6px 5px 0px #000000;
+}
+
+/* 2. التحديث ديال الألوان (فاش كنشعلو Dark Mode) */
+.dark-mode {
+    --bg-outside: #ffffff;    /* الخلفية اللي لور تولي بيضاء كيبغيتي */
+    --bg-paper: #000000;      /* الورقة تولي كحلة */
+    --text-main: #ffffff;     /* السمية تولي بيضاء */
+    --text-hy: #ffffff;       /* Hy There حتى هي تولي بيضاء */
+    --line-color: rgba(255, 255, 255, 0.1); /* الخيوط لوسط يولي بيضين وخفاف */
+    --icon1-bg: #c63131; 
+    --icon2-bg: #21dad6;
+    --icon3-bg: #d87525;
+    --icon-text: #000000;
+    --line-color: rgba(255, 255, 255, 0.1);
+    --fix-bg: rgba(255, 255, 255, 0.2);
+    --job-bg: #ffffff;
+     --about-bg: #ffffff;   /* تولي بيضاء */
+    --about-text: #000000; /* كتبة كحلة */
+    --about-border: #000000; /* الإطار يبقى كحل كيف بغيتي */
+    --about-shadow: #eacf21;
+    --about-bg: #ffffff;
+    --about-text: #000000;
+    --about-border: #000000;
+    /* هنا السر: زدنا 15px ديال الـ blur باش يولي الحمر كايضوي */
+    --about-shadow: 0px 0px 15px #ff0000, 5px 5px 0px #ff0000;
+
+    /* هنا التعديل اللي بغيتي */
+    --box-bg: #2a2a2a;        /* رمادي غامق (Gris) باش ما تبانش كحلة بزاف */
+    
+    /* الخيال الحمر المضوي (Glow) */
+    --box-shadow: 0px 0px 20px #ff0000, 10px 10px 0px #ff0000;
+
+    --header-shadow: 0px 0px 15px #ff0000, 6px 5px 0px #ff0000;
+    
+    /* وإيلا بغيتي حتى الـ Background تتبدل، زيد هادو: */
+    --header-bg: #2a2a2a;
+}
+.icon-1 {
+    background-color: var(--icon1-bg) !important;
+    color: var(--icon-text);
+}
+.icon-2 {
+    background-color: var(--icon2-bg) !important;
+    color: var(--icon-text);
+}
+.icon-3 {
+    background-color: var(--icon3-bg) !important;
+    color: var(--icon-text);
+}
+
+/* 3. تطبيق المتغيرات على العناصر */
+
+body {
+    background-color: var(--bg-outside);
+    transition: background-color 0.5s ease;
+}
+
+ .paper-sheet { 
+    /* الستايلات الأساسية */
+    width: calc(100% - 140px); 
+    min-height: 100vh; 
+    margin: 20px 0 50px 0;
+    padding: 20px; 
+    box-sizing: border-box;
+    position: relative;
+    border: 3px solid var(--text-main); 
+    box-shadow: 10px 10px 0px var(--text-main);
+    
+    /* استعمال المتغيرات الذكية */
+    background-color: var(--bg-paper) !important;
+    background-image: 
+        linear-gradient(var(--line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+     
+    /* حركة ناعمة */
+    transition: all 0.7s ease;
+}
+.name {
+    color: var(--text-main) !important;
+    transition: color 0.7s ease;
+}
+
+.hy {
+    color: var(--text-hy) !important;
+    transition: color 0.7s ease;
+}
+
+ .description {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 25px; 
+    line-height: 1.6;
+    max-width: 500px;
+    
+    /* هاد السطر هو اللي كيحل المشكل */
+    color: var(--text-main) !important;
+    
+    /* هادي اختيارية باش ما تجيش بيضا ناصعة بزاف في Dark Mode */
+    opacity: 0.8; 
+    
+    transition: color 0.7s ease;
+}
+ 
+ /*first animation*/
  /* الـ Loader يغطي الشاشة كاملة */
 #loader {
     position: fixed;
@@ -94,7 +228,7 @@
     width: 0%;
     height: 100%;
     background: black;
-    animation: loading 1.5s linear forwards; /* زربنا التحميل لـ 1.5s */
+    animation: loading 0.7s linear forwards; /* زربنا التحميل لـ 1.5s */
 }
 
 @keyframes loading {
@@ -115,8 +249,8 @@
          .paper-sheet {
     /* العرض والمارجين اللي حددنا قبل */
     width: calc(100% - 140px); 
-    min-height: 100vh; 
-    margin-top: 20px; 
+    min-height: 2500px;
+     margin-top: 20px; 
     margin-bottom: 50px;
     
     background-color: #fcfcfc;
@@ -137,6 +271,7 @@
     
     padding: 20px; 
     box-sizing: border-box;
+     box-shadow: var(--about-shadow)!important;
 }
  header {
     background-color: #FDD336;
@@ -153,6 +288,12 @@
     /* باش الـ button يجي موسط عمودياً */
     display: flex;
     align-items: center;
+     background-color: var(--about-bg) !important;
+    color: var(--about-text) !important;
+    border: 3px solid var(--about-border) !important;
+    
+    /* عيطنا للمتغير اللي فيه الضو الحمر */
+    box-shadow: var(--about-shadow)!important;
 }
 
   .header {
@@ -179,6 +320,34 @@
     transition: 0.1s;
 }
 
+header {
+    /* --- الساروت الجديد --- */
+    position: sticky; 
+    top: 0; /* كيبقى لاصق ف الفوق فاش كتوصل ليه */
+    z-index: 1000;
+    
+    /* رجعو للعرض العادي ديالك اللي كان خدام ليك */
+    width: 100%; 
+    height: 55px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 20px;
+
+    /* الستايل ديالك */
+    background-color: var(--about-bg) !important;
+    border: 3px solid var(--about-border) !important;
+    box-shadow: var(--about-shadow) !important;
+
+    /* أنميشن السلتة */
+    transition: transform 0.4s ease-in-out;
+}
+
+/* فاش نكونو هابطين (بـ JS) */
+.header-hidden {
+    transform: translateY(-110%);
+}
+ 
 /* حركة فاش كتضغط على الزر */
 .header:active {
     box-shadow: 0px 0px 0px #000;
@@ -311,7 +480,7 @@ header {
 }
 
 .name {
-    font-family: henny penny;
+    font-family: Outfit;
     font-weight: 500;
     font-size: 52px; /* كبرتها شوية باش تجي ناضية */
     color: #000;
@@ -319,17 +488,6 @@ header {
     letter-spacing: -1.5px;
     line-height: 1.1;
 }
-
-.description {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    color: #666;
-    /* فراغ بين السمية والوصف */
-    margin-top: 25px; 
-    line-height: 1.6;
-}
-
 /*swaap imogi*/
 
 /* في الأول الـ Emojis مخفيين ومكيتحركوش */
@@ -420,7 +578,7 @@ header {
     border-radius: 10px;
     box-shadow: 3px 3px 0px #000;
     border: 3px solid black;
-
+ box-shadow: var(--about-shadow)!important;
     z-index: 10;
 }
 
@@ -542,4 +700,629 @@ header {
     100% {
         transform: translateY(0px) rotate(0deg);
     }
+}
+
+ .fix {
+    width: 90px;
+    height: 35px;
+    
+    /* استعمال المتغير الذكي */
+    background-color: var(--fix-bg) !important;
+    
+    opacity: 0.7;
+    position: relative;
+    top: -1900px;
+    left: 900px;
+    z-index: 10;
+    transform: rotate(-5deg);
+    
+    /* خلي الـ transition باش يتبدل اللون بشوية */
+    transition: background-color 0.7s ease;
+    
+    /* ملاحظة: mix-blend-mode: multiply ف الـ Dark Mode 
+       كتخلي العنصر يغبر حيت كيضرب الأبيض ف الكحل. 
+       من الأحسن تحيدها فاش يكون Dark Mode أو دير ليها "screen" */
+}
+
+/* تعديل صغير باش يبان الضوء ف الـ Dark Mode */
+.dark-mode .fix {
+    mix-blend-mode: screen; /* هادي كتخلي الأبيض يضوي فوق الكحل */
+}
+
+ .job {
+    /* اللون دابا مربوط بالمخزن (Variable) */
+    background-color: var(--job-bg) !important;
+    font-family: Permanent Marker;
+    border-radius: 3px;
+    padding: 8px 20px; 
+    display: inline-block; 
+    margin: 0 5px; 
+     
+    color: #000;
+    position: relative;
+
+    /* هاد العبارات ديالك خليتهم كيبغيتي */
+    bottom: 1540px;
+    left: 860px;
+    z-index: 10;
+    box-shadow: 5px 5px 0px #000;
+    
+     box-shadow: var(--about-shadow)!important;
+    /* هادي ضرورية باش الألوان يتبدلو بسلاسة ومايخطفوش العين */
+    transition: background-color 0.7s ease; 
+}
+ 
+   .carousel-container {
+    position: absolute;
+    top: 580px; /* حطها فين بغيتي في الورقة */
+    left: 0;
+    width: 100%;
+    overflow: hidden; /* كيحبس الكلمات اللي خارجين على الجناب */
+    padding: 20px 0;
+    white-space: nowrap;
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content; /* كيعطيها العرض الكافي باش تسرح */
+    gap: 60px; /* الفراغ بين الكلمات */
+    animation: scroll-infinity 10s linear infinite;
+}
+
+/* هادي هي الأنميشن اللي كتدير الـ Infinity */
+@keyframes scroll-infinity {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* كيمشي للنص ديال العرض ويرجع لـ 0 بلا ما تعيق */
+        transform: translateX(-50%);
+    }
+}
+
+.css {
+    background-color: #FDD336!important;
+    padding: 10px 25px;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0px #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-radius: 4px;
+     box-shadow: var(--about-shadow)!important;
+}
+
+  .about {
+    position: absolute;
+    top: 750px; 
+    left: 40px; 
+
+    background-color: var(--about-bg) !important;
+    color: var(--about-text) !important;
+    border: 3px solid var(--about-border) !important;
+    
+    /* عيطنا للمتغير اللي فيه الضو الحمر */
+    box-shadow: var(--about-shadow);
+
+    padding: 12px 25px;
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.7s ease; 
+
+    /* الأنميشن ديالك خليتها كيفما هي */
+    animation: slideIn linear forwards;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+}
+
+/* إيضا بغيتي الضو يخرج حتى من الجناب كاملين فاش كتدوز الفارة (Hover) */
+.dark-mode .about:hover {
+    box-shadow: 0px 0px 25px #ff0000, 7px 7px 0px #ff0000;
+}
+
+/* التعديل حتى في الـ Hover باش يبقى الحمر باين */
+.about:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px var(--about-shadow);
+}
+
+.about:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px var(--about-shadow);
+}
+
+ .about {
+    /* ... الكود القديم ديالك ... */
+
+    /* كنربطو الأنميشن بالسكرول ماشي بالوقت */
+    animation: slideIn linear forwards;
+    animation-timeline: view();
+    
+    /* كتقول ليه: بدا الأنميشن فاش تدخل الحافة ديالها للشاشة (entry 0%) 
+       وساليها فاش تطلع لـ 40% من الشاشة */
+    animation-range: entry 0% cover 40%;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(150px) rotate(10deg); /* جاية من التحت */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg); /* بلاصتها الأصلية */
+    }
+}
+
+.text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-main);
+    margin: 0;
+}
+ 
+
+  .text-box {
+    /* استعمال المتغيرات الذكية */
+    background-color: var(--box-bg) !important;
+    box-shadow: var(--box-shadow);
+    
+    /* باقي الكود ديالك (التموقع والقياسات) */
+    border: 3px solid #000;
+    padding: 40px;
+    position: absolute;
+    top: 850px;
+    left: 40px;
+    width: 85%;
+    max-width: 1200px;
+    min-height: 200px;
+    
+    /* باش تحول الألوان بشوية فاش تورك على الزرار */
+    transition: background-color 0.7s ease, box-shadow 0.7s ease;
+    
+    z-index: 4;
+}
+.text {
+    /* 1. هادي هي أهم وحدة باش النص يشد العرض كامل */
+    text-align: justify; 
+    
+    /* 2. كبر الخط شوية باش يعمر الصندوق */
+    font-size: 22px; 
+    
+    /* 3. زيد شوية الفراغ بين السطور باش ما يجيش النص مخنوق */
+    line-height: 1.8; 
+    
+    /* 4. نبعدو الحروف بنغزة باش يجي الستايل موديرن */
+    letter-spacing: 0.5px;
+    
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* إيلا بغيتي حتى الـ Highlights يتباعدو شوية */
+.highlight-yellow, .highlight-pink, .highlight-cyan, .highlight-green {
+    padding: 2px 8px;
+    margin: 0 2px;
+    display: inline-block; /* باش يتحركو براحتهم مع النص */
+}
+
+.text-box {
+    /* ... الكود القديم ديالك (width, border, position...) ... */
+
+    /* 1. نعيطو للأنميشن */
+    animation: slideUpFade linear forwards;
+
+    /* 2. نربطوها بـ السكرول */
+    animation-timeline: view();
+
+    /* 3. نحددوا فوقاش تبدا (غير تبان الحافة ديال الصندوق) وفوقاش تسالي */
+    animation-range: entry 5% cover 35%;
+}
+
+/* 4. كود الأنميشن (التحراك من التحت لـ الفوق) */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(120px) scale(0.95); /* طالع من التحت وصغير شوية */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1); /* كيرجع لبلاصتو وعرضو الطبيعي */
+    }
+}
+
+.highlight-yellow, .highlight-pink, .highlight-cyan, .highlight-green {
+    /* 1. كنحطو اللون فـ Gradient وكنصغرو الحجم ديالو لـ 0% */
+    background-image: linear-gradient(var(--bg-color), var(--bg-color));
+    background-size: 0% 100%; 
+    background-repeat: no-repeat;
+    background-position: left; /* كيبدا يتلون من اليسر لليمن */
+    
+    transition: background-size 0.8s ease-out; /* هادي هي اللي كدير "التسليتة" */
+    
+    padding: 0 4px;
+    border-radius: 3px;
+    color: inherit;
+    display: inline;
+}
+
+ .text-box span {
+    /* الستايل ديال اللون مخبي */
+    background-image: linear-gradient(var(--bg-color), var(--bg-color));
+    background-size: 0% 100%; 
+    background-repeat: no-repeat;
+    background-position: left;
+    
+    /* الوقت ديال التلوين (ثانية واحدة باش يبان بشوية) */
+    transition: background-size 1s ease-in-out;
+    
+    padding: 0 4px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* هاد الكلاس هو اللي غايزيدو JS فاش توصل للسكرول */
+.text-box span.active {
+    background-size: 100% 100%;
+}
+
+/* الألوان (تأكد منهم) */
+.highlight-yellow { --bg-color: #FDD336; }
+.highlight-pink   { --bg-color: #ff85a2; }
+.highlight-cyan   { --bg-color: #5BD8EE; }
+.highlight-green  { --bg-color: #3ec332; }
+ 
+.text-box span {
+    /* ... الكود القديم ... */
+    background-size: 0% 100%;
+    /* هاد السطر كيخلي اللون يتمسح بشوية فاش تطلع لفوق */
+    transition: background-size 0.5s ease-in-out; 
+}
+ 
+ 
+
+ .github-btn {
+    position: absolute;
+    top: 260px;
+    right: 460px;
+    /* صغرنا الصندوق شوية باش يجي متناسق مع الأيقونة */
+    width: 40px; 
+    height: 40px;
+    background-color: #fff;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px #000; /* نقصنا حتى الخيال باش ما يجيش معيّق */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+      
+}
+.dark-mode .github-btn {
+    /* هنا كنقولو ليه: استعمل الحمر ولكن صغر الـ blur لـ 5px والمسافة لـ 3px */
+    /* هكا غايجي "Glow" صغيور ومجموع مع الزرار */
+    box-shadow: 0px 0px 8px #ff0000, 3px 3px 0px #ff0000;
+}
+
+
+/* هنا فين كتحكم ف حجم الأيقونة لداخل */
+.github-btn i {
+    font-size: 22px; /* هاد القياس كيجي "باينا وسغيرا" */
+    color: #000;
+}
+
+/* Hover ناضي */
+.github-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background-color: #FDD336;
+}
+
+ .linkedin-btn {
+    position: absolute;
+    top: 260px; 
+    right: 410px; 
+    width: 40px; 
+    height: 40px;
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 4px 4px 0px #000;
+    /* هنايا عيط غير على اللي عندك ديجا في الـ root */
+    /* بلا ما تزيد حتى سطر ف الـ dark-mode */
+    
+    transition: all 0.7s ease;
+}
+.dark-mode .linkedin-btn {
+    /* هنا كنقولو ليه: استعمل الحمر ولكن صغر الـ blur لـ 5px والمسافة لـ 3px */
+    /* هكا غايجي "Glow" صغيور ومجموع مع الزرار */
+    box-shadow: 0px 0px 8px #ff0000, 3px 3px 0px #ff0000;
+}
+
+/* الأيقونة لداخل */
+.linkedin-btn i {
+    font-size: 20px; /* LinkedIn أيقونة كتجي عريضة شوية داكشي علاش 20px كافية */
+    color: #000;
+}
+
+/* Hover ناضي باللون ديال LinkedIn */
+.linkedin-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background-color: #0077b5; /* أزرق LinkedIn */
+    color: #fff; /* تولي الأيقونة بيضاء فاش دوز فوقها */
+}
+
+.linkedin-btn:hover i {
+    color: #fff;
+}
+
+ /*test*/
+
+  .main-container {
+            width: 450px; 
+            height: 420px; 
+            position: absolute;
+            bottom: 700px;
+            left: 420px;
+            box-shadow: 6px 6px 6px rgba(0,0,0,0.8);
+            background-color: #1a1a1a;
+        }
+
+        .treasure-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 550px;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+             box-shadow: 2px 2px 2px   rgba(0, 0, 0, 0.85);
+              box-shadow: var(--header-shadow);
+
+        }
+
+        .folding-paper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 65%;
+            height: 100%;
+            background-color: #daa40e;
+            background-image: radial-gradient(#F4E7D7 60%, #c2b280 100%);
+            transform-origin: left;
+             z-index: 5;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-sizing: border-box;
+            outline: 2px dashed #5d4037;
+            outline-offset: -10px;
+            box-shadow: 6px 6px 6px 3px rgba(0, 0, 0, 0.85);
+    
+             transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.8s ease;  
+          }
+
+        .map-front, .map-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .map-front {
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .map-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fefefe;
+             transform: rotateY(-180deg);
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 20px;
+            box-sizing: border-box;
+            color: #2c1e1a;
+            border-left: 2px solid #c2b280;
+            overflow-y: auto;
+            box-shadow:   6px 6px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--header-shadow); 
+    /* واحد الـ Gradient خفيف كيعطي إحساس بالورقة القديمة */
+           background-image: linear-gradient(to right, #ffffff, #f2f2f2);
+        }
+
+     .folding-paper.is-open {
+    transform: rotateY(-180deg);
+    /* هاد الضل اللي عجبك كحل ومجهد */
+    box-shadow: 6px 5px 5px   rgba(0, 0, 0, 0.9);
+
+}
+
+.main-container {
+    /* ... الكود اللي عندك ... */
+    opacity: 0;
+    transform: translateY(100px); /* مهبطة بـ 100px لتحت */
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1); /* حركة ناعمة للطلوع */
+}
+
+/* هاد الـ Class غايعطيه الـ JS فاش توصل ف الـ Scroll */
+.main-container.show-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* هاد السطر ديال التحلال ديال الورقة كيبقى هو هو */
+.folding-paper {
+    /* ... الكود اللي عندك ... */
+    transition: transform 1.5s 0.5s ease, box-shadow 1.5s 0.5s ease; 
+    /* زدت 0.5s delay باش ما تحلش حتى تطلع الخريطة كاملة */
+}
+
+        .treasure-map-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* تكبير الكتيبة وتحسين الستايل */
+        .exp-section { text-align: left; width: 100%; margin-bottom: 20px; }
+        .exp-title { font-size: 15px; font-weight: bold; color: #5d4037; margin: 0; text-decoration: underline; }
+        .exp-date { font-size: 13px; font-weight: bold; margin: 5px 0; display: flex; align-items: center; gap: 7px; color: #8B4513; }
+        .exp-list { font-size: 12px; margin: 8px 0; padding-left: 18px; line-height: 1.5; font-weight: 500; }
+        .exp-list li { margin-bottom: 5px; }
+
+
+
+     .journey-full-strip {
+    width: 90%; 
+    margin: 0 auto; 
+    background-color: var(--about-bg) !important;    
+    border: 3px solid var(--text-main); 
+    box-shadow: var(--header-shadow); 
+    padding: 10px 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+    top: 1240px;
+    left: 50%;
+    
+    /* الحالة البدئية: هابط بـ 50px ومخفي */
+    opacity: 0;
+    transform: translateX(-50%) translateY(50px); 
+    
+    /* ضروري نزيدو الـ opacity والـ transform ف الـ transition */
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 5;
+}
+
+/* هاد الـ Class كيزيدو الـ JS فاش توصل ف الـ Scroll */
+.journey-full-strip.show-strip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.journey {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px; 
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+    letter-spacing: 4px; 
+}
+
+ 
+.journey-full-strip {
+    /* ... الكود القديم ديالك كامل ... */
+
+    /* خلي واحد 100px ولا 150px فراغ باش ما يجيش لاصق ف السقف */
+    scroll-margin-top: 150px; 
+}
+
+ .text-box {
+    position: absolute;
+    top: 850px; /* خليه كيفما نتا محكم فيه */
+    
+    /* هادي هي الساروت: جرب تبدل هاد الرقم */
+    /* إيلا كان كيهبط بزاف، كبّر هاد الرقم (مثلاً 200px ولا 300px) */
+    scroll-margin-top: 150px; 
+}
+
+/* ضروري باش السكرول يجي زلق وما يتقفزش */
+html {
+    scroll-behavior: smooth;
+}
+
+#home {
+    scroll-margin-top: 0;
+}
+
+/* هاد السطر ضروري يكون عندك باش السكرول ما يتقفزش */
+html {
+    scroll-behavior: smooth;
+}
+
+
+html, body {
+    /* كنعطيو المسار ديال التصويرة، و ضروري نزيدو auto ف لخير */
+    cursor: url('https://cdn-icons-png.flaticon.com/32/3222/3222672.png'), auto;
+}
+
+/* إيلا بغيتي السهم يتبدل فاش يحط المستخدم الماوس على الروابط */
+a, button {
+    cursor: url('https://cdn-icons-png.flaticon.com/32/1087/1087815.png'), pointer;
+}
+
+
+/* كنخبيو السهم العادي في الصفحة كاملة */
+ /* خبي الماوس العادية */
+
+ /* كنخبيو السهم العادي في الصفحة كاملة */
+ 
+/* النقطة الوسطانية */
+/* خبي السهم العادي */
+html, body {
+    cursor: none;
+}
+
+/* النقطة الكحلة (الوسط) */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #000;
+    background-color: var(--header-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 10001; /* فوق كولشي */
+    pointer-events: none;
+}
+
+/* الدائرة الكبيرة (اللي كتعطي الدخان) */
+ /* الدائرة الكبيرة */
+.cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 10000;
+    pointer-events: none;
+    /* استعملنا transform عوض left/top باش نحيدو Lag */
+    transition: transform 0.15s ease-out; 
+    will-change: transform;
+}
+
+/* الدخان الصفر */
+.trail {
+    position: fixed;
+    width: 10px; /* صغرناه شوية باش نربحو الخفة */
+    height: 10px;
+    background-color: #FDD336;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform, opacity;
+    animation: fadeOut 0.5s forwards;
+}
+@keyframes fadeOut {
+    0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
 }
