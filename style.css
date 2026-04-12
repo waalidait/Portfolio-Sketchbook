@@ -26,6 +26,13 @@
     --header-bg: #FDD336; /* الأصفر ديال النهار */
     --header-shadow: 6px 5px 0px #000000;
     --header-shadow: 6px 5px 0px #000000;
+    --cursor-color: #000000; /* كحل */
+    --trail-color: #FDD336;
+
+    --trail-color: #FDD336; /* صفر في النهار */
+    --trail-glow: none;
+
+    --cursor-glow: none; /* ف النهار خيال عادي أو والو */
 }
 
 /* 2. التحديث ديال الألوان (فاش كنشعلو Dark Mode) */
@@ -62,6 +69,15 @@
     
     /* وإيلا بغيتي حتى الـ Background تتبدل، زيد هادو: */
     --header-bg: #2a2a2a;
+
+    --cursor-color: #FDD336; /* النقطة والدائرة يولي صفرين */
+    --trail-color: #FDD336;
+
+    --trail-color: #ff0000; /* يولي حمر في الليل */
+    /* لمعة حمرة مجهدة كتخلي الدخان يبان كايضوي */
+    --trail-glow: 0px 0px 8px #ff0000, 0px 0px 15px #ff0000;
+
+    --cursor-glow: 0px 0px 10px #ff0000, 0px 0px 5px #ff0000;
 }
 .icon-1 {
     background-color: var(--icon1-bg) !important;
@@ -86,7 +102,13 @@ body {
  .paper-sheet { 
     /* الستايلات الأساسية */
     width: calc(100% - 140px); 
-    min-height: 100vh; 
+     min-height: 100vh; /* خليها غير هكا */
+    
+    /* هادا هو الساروت: كيزيد 800px ديال الطول من التحت */
+    padding-bottom: 800px; 
+    
+    box-sizing: border-box;
+     
     margin: 20px 0 50px 0;
     padding: 20px; 
     box-sizing: border-box;
@@ -246,7 +268,7 @@ body {
             align-items: flex-start;
         }
 
-         .paper-sheet {
+     .paper-sheet {
     /* العرض والمارجين اللي حددنا قبل */
     width: calc(100% - 140px); 
     min-height: 2500px;
@@ -781,7 +803,10 @@ header {
 }
 
 .css {
-    background-color: #FDD336!important;
+    background-color: var(--about-bg) !important;
+    
+    /* ف النهار كياخد الخيال الكحل، وف الليل كيشعل بالحمر */
+    box-shadow: var(--about-shadow) !important;
     padding: 10px 25px;
     border: 3px solid #000;
     box-shadow: 5px 5px 0px #000;
@@ -1071,8 +1096,8 @@ header {
             width: 450px; 
             height: 420px; 
             position: absolute;
-            bottom: 700px;
-            left: 420px;
+            top: 1350px; /* جرب هاد الرقم، وزيد فيه أو نقص حتى تجيك الخريطة حدا التصويرة */
+             left: 420px;
             box-shadow: 6px 6px 6px rgba(0,0,0,0.8);
             background-color: #1a1a1a;
         }
@@ -1281,8 +1306,9 @@ html, body {
 .cursor-dot {
     width: 8px;
     height: 8px;
-    background-color: #000;
-    background-color: var(--header-bg);
+    background-color: var(--cursor-color);
+    /* استعمال المتغير الجديد (0px 0px باش يجي موسط) */
+    box-shadow: var(--cursor-glow);
     position: fixed;
     top: 0;
     left: 0;
@@ -1297,7 +1323,10 @@ html, body {
 .cursor-outline {
     width: 30px;
     height: 30px;
-    border: 2px solid #000;
+    border: 2px solid var(--cursor-color);
+    
+    /* حتى الدائرة الكبيرة زدنا ليها خيال خفيف باش تبان "شاعلة" */
+    box-shadow: var(--cursor-glow);
     position: fixed;
     top: 0;
     left: 0;
@@ -1315,9 +1344,10 @@ html, body {
     position: fixed;
     width: 10px; /* صغرناه شوية باش نربحو الخفة */
     height: 10px;
-    background-color: #FDD336;
+    background-color: var(--trail-color);
     border-radius: 50%;
     pointer-events: none;
+    box-shadow: var(--trail-glow);
     z-index: 9999;
     will-change: transform, opacity;
     animation: fadeOut 0.5s forwards;
@@ -1326,3 +1356,209 @@ html, body {
     0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
     100% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
 }
+ 
+
+.skill-badge {
+    /* الخط والحجم */
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+    display: inline-block; /* باش البوردر يجي مجموع على قد الكلمة */
+    position: relative;
+    top: -230px;
+    /* الألوان والحدود */
+    background-color: #FDD336; /* سفر */
+    color: #000; /* الكتبه بالكحل */
+    border: 3px solid #000; /* بوردر كحل غليظ */
+    
+    /* الظل القاصح (Brutalist Style) */
+    box-shadow: 7px 7px 0px #000;
+    
+    /* التموضع والفراغ */
+    padding: 10px 25px;
+    margin: 20px;
+    cursor: default;
+    
+    /* أنميشن خفيفة فاش كتحط عليها الماوس (اختياري) */
+    transition: transform 0.2s ease;
+}
+
+ 
+/* الحاوية اللي كتجمعهم بجوج */
+ .skills-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    justify-content: center;
+    
+    /* هادا هو الساروت باش تطلعهم بلا مشاكل */
+    margin-top: -150px; /* جرب -150px ولا -200px على حسب شحال بغيتي تطلعهم */
+    
+    position: relative; /* اختيارية، غير باش تضمن الـ z-index */
+    z-index: 10; /* باش يبانو فوق أي خلفية تماك */
+}
+
+.skills-card {
+    width: 320px;
+    background-color: var(--bg-paper);
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* حيدنا position relative و bottom باش ما يتخربقوش */
+}
+
+/* الألوان الخاصة بكل وحدة */
+.languages-card { border-top: 6px solid #FDD336; }
+.frontend-card { border-top: 6px solid #5BD8EE; }
+
+.react-icon { color: #5BD8EE; font-size: 22px; }
+.code-icon { color: #FDD336; font-weight: bold; }
+
+/* السطر والـ items خليهم كيفما هما */
+.full-line { width: 70%; height: 3px; background-color: #000; margin: 8px auto 20px auto; }
+.card-content { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+.skill-item { width: calc(50% - 20px); text-align: center; background: #fff; border: 2px solid #000; padding: 8px 0; font-weight: bold; box-shadow: 4px 4px 0px #000; }
+
+
+.card-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #000; /* العنوان دابا كحل سادة */
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.code-icon {
+    color: #FDD336; /* الأيقونة هي اللي صفراء */
+    font-weight: bold;
+}
+
+.full-line {
+    width: 70%; /* طولنا السطر شوية */
+    height: 3px;
+    background-color: #000;
+    margin: 8px auto 20px auto;
+}
+
+ .card-content {
+    display: flex;
+    flex-wrap: wrap; /* باش فاش يسالي السطر يهبط لتحت */
+    justify-content: center; /* باش يجيوا موسطين */
+    gap: 15px; /* المسافة بيناتهم */
+    padding: 20px 10px;
+    width: 100%; /* كياخد عرض الصندوق كامل */
+    box-sizing: border-box;
+}
+
+.skill-item {
+    /* هاد السطر هو الساروت: 
+       كيعطي لكل وحدة عرض يخلي غير جوج يقدوا في السطر */
+    width: calc(50% - 20px); 
+    
+    text-align: center;
+    background: #fff;
+    border: 2px solid #000;
+    padding: 8px 0;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 4px 4px 0px #000;
+    transition: 0.2s;
+}
+
+.skill-item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+    background-color: #FDD336;
+}
+
+/* هادا غايصبغ الـ items لي وسط الـ Front-end Card باللون الشبي */
+.frontend-card .skill-item {
+       background-color: #fff;
+    color: #000; /* لون الكتبه كحل باش يبقى واضح */
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+}
+
+/* هادا باش فاش دوز الماوس (Hover) يولي اللون أبيض مثلاً أو يتبدل الضل */
+.frontend-card .skill-item:hover {
+    background-color: #5BD8EE;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+/* --- Back-end Card (اللون الخضر) --- */
+.backend-card {
+    border-top: 6px solid #6cc24a; /* خضر ديال Node */
+}
+
+.node-icon {
+    color: #6cc24a;
+    font-size: 22px;
+}
+
+.backend-card .skill-item {
+    background-color: #6cc24a;
+    color: #fff;
+}
+
+/* --- Tools Card (اللون الليموني + أيقونة الكلموني) --- */
+.tools-card {
+    border-top: 6px solid #ff9100; /* ليموني مجهد */
+}
+
+.tool-icon {
+    color: #ff9100;
+    font-size: 20px;
+}
+
+.tools-card .skill-item {
+    background-color: #ff9100;
+    color: #fff;
+}
+
+ /* --- ستايل مشترك باش يبداو بيضين --- */
+.backend-card .skill-item, 
+.tools-card .skill-item {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.3s ease;
+}
+
+/* --- 1. الـ Hover ديال Back-end (الخضر) --- */
+.backend-card .skill-item:hover {
+    background-color: #6cc24a; /* أخضر ناضي */
+    color: #fff; /* كتابة بيضاء باش تبان */
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+/* --- 2. الـ Hover ديال Tools (الليموني) --- */
+.tools-card .skill-item:hover {
+    background-color: #ff9100; /* ليموني مجهد */
+    color: #fff; /* كتابة بيضاء */
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+.skills-wrapper {
+    /* ... الكود القديم ديالك خليه ... */
+    
+    opacity: 0;
+    transform: translateY(100px); /* هابط لتحت */
+    transition: all 0.8s ease-out; /* الحركة شحال غاتاخد ديال الوقت */
+}
+
+/* هاد الكلاس غايزيدها JavaScript ملي توصل للسيكشن */
+.skills-wrapper.show {
+    opacity: 1;
+    transform: translateY(0); /* كيرجع لبلاصتو الأصلية */
+}
+

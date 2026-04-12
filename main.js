@@ -101,11 +101,7 @@ observers.observe(document.querySelector('.text-box'));
                 container.classList.add('show-up');
                 // 2. حل الورقة
                 paper.classList.add('is-open');
-            } else {
-                // هبط الخريطة وسد الورقة فاش ترجع لور
-                container.classList.remove('show-up');
-                paper.classList.remove('is-open');
-            }
+            } 
         });
     }, {
         threshold: 0.3 // يبدا يبان 30% منها عاد تخدم الحركة
@@ -123,10 +119,7 @@ observers.observe(document.querySelector('.text-box'));
             if (entry.isIntersecting) {
                 // فاش توصل ليه كيطلع
                 entry.target.classList.add('show-strip');
-            } else {
-                // فاش ترجع لور كيعاود يهبط ويغبر (إيلا بغيتي)
-                entry.target.classList.remove('show-strip');
-            }
+            }  
         });
     }, {
         threshold: 0.5 // ما يبدا يطلع حتى يبان نصو ف الشاشة
@@ -209,3 +202,21 @@ window.addEventListener("mousemove", (e) => {
         lastMouseY = posY;
     }
 });
+
+
+const observer7 = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            // ملي كتوصل ليها، زيد الكلاس
+            entry.target.classList.add('show');
+        }  
+    });
+}, {
+    threshold: 0.1 // كيبدا Animation غير كيبان 10% من الصندوق
+});
+
+// قُل للمراقب يحضي الـ wrapper
+const wrapper = document.querySelector('.skills-wrapper');
+observer7.observe(wrapper);
+
+
