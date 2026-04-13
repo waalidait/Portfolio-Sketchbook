@@ -220,3 +220,17 @@ const wrapper = document.querySelector('.skills-wrapper');
 observer7.observe(wrapper);
 
 
+
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.5 }); // غادي تبدا الحركة ملي تبان نص الكلمة
+
+// كنعلمو الـ JS يراقب الـ badge
+const badge = document.querySelector('.skill-badge');
+if (badge) {
+    skillObserver.observe(badge);
+}

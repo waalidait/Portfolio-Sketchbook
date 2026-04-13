@@ -78,6 +78,13 @@
     --trail-glow: 0px 0px 8px #ff0000, 0px 0px 15px #ff0000;
 
     --cursor-glow: 0px 0px 10px #ff0000, 0px 0px 5px #ff0000;
+
+    --card-border-dark: #1a1a1a; 
+    
+    /* المتغيرات اللي ديجا عندك غانخدمو بيهم */
+    --text-main: #ffffff;
+    --box-shadow-red: 0px 0px 10px #ff0000, 4px 4px 0px #ff0000;
+    --bg-paper: #000000; /* خلفية الكارط كحلة */
 }
 .icon-1 {
     background-color: var(--icon1-bg) !important;
@@ -1560,5 +1567,220 @@ html, body {
 .skills-wrapper.show {
     opacity: 1;
     transform: translateY(0); /* كيرجع لبلاصتو الأصلية */
+}
+
+
+
+.skill-badge {
+    /* الستايل ديالك القديم خليه */
+    padding: 10px 20px;
+    border: 3px solid #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 8px;
+
+    /* الربط بالمخزن (Variables) */
+    background-color: var(--about-bg) !important; /* كتولي بيضة ف الليل */
+    box-shadow: var(--about-shadow) !important;   /* كيشعل فيها الضو الحمر ف الليل */
+    color: #000; /* ديما كحلة باش تبان فوق الأبيض */
+
+    /* الأنميشن ديالك */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s ease-out;
+}
+
+/* فاش كتولي visible (فاش كيسكرولي ليها الواحد) */
+.skill-badge.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* هاد الكلاس كيزيدها الـ JS ملي كتوصل ليها */
+.skill-badge.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- تعديل الـ Cards --- */
+.skills-card {
+    /* ... القياسات ديالك خليهم ... */
+    background-color: var(--bg-paper);
+    border: 3px solid #000;
+    transition: all 0.6s ease;
+}
+
+.dark-mode .skills-card {
+    border-color: var(--card-border-dark); /* الرمادي الغامق */
+    box-shadow: 8px 8px 0px var(--card-border-dark);
+}
+
+/* --- تعديل العناوين والكتابة --- */
+.dark-mode .card-title {
+    color: var(--text-main); /* بيضاء */
+}
+
+.dark-mode .full-line {
+    background-color: var(--text-main); /* السطر يولي أبيض */
+}
+
+/* --- تعديل الـ Skill Items (اللغات والتقنيات) --- */
+.skill-item {
+    /* ... القياسات ديالك خليهم ... */
+    transition: all 0.5s ease;
+}
+
+.dark-mode .skill-item {
+    background-color: transparent; /* كتبقى الخلفية كحلة أو شفافة */
+    color: var(--text-main); /* كتابة بيضاء */
+    border: 2px solid var(--text-main); /* إطار أبيض رقيق */
+    
+    /* الساروت: الضو الحمر كايشعل */
+    box-shadow: var(--box-shadow-red);
+}
+
+/* --- الـ Hover ف الـ Dark Mode --- */
+.dark-mode .skill-item:hover {
+    background-color: #ff0000; /* فاش كدوز الماوس تولي حمرة كاملة */
+    color: #000; /* والكتابة ترجع كحلة باش تبان */
+    transform: translate(-3px, -3px);
+}
+.skills-card {
+    /* ... القياسات ديالك (width, padding...) خليهم كيف ما هما ... */
+    background-color: var(--bg-paper); /* كتولي كحلة ف الليل */
+    border: 3px solid #000;
+    
+    /* ف النهار كياخد الخيال الكحل */
+    box-shadow: 8px 8px 0px #000;
+    
+    transition: all 0.6s ease;
+}
+
+/* التعديل ديال الـ Dark Mode للصناديق */
+ .dark-mode .skills-card {
+    /* رمادي غامق (ماشي كحل ميت) */
+    border-color: #4a4a4a; 
+    
+    /* الخيال: الحمر المضوي + الرمادي بلاصة الكحل */
+ box-shadow: 0px 0px 15px #ff0000, 4px 4px 1px #ff0000;    
+    background-color: #282727; /* خلفية الكارط رمادي غامق بزاف */
+}
+ .dark-mode .skill-item {
+    background-color: #ffffff; /* رمادي فاتح شوية على الكارط */
+    color: #000000; 
+    border: 2px solid #4a4a4a; /* إطار رمادي */
+    
+    /* خيال حمر صغيور + خيال رمادي صلب */
+    box-shadow: 0px 0px 15px #ff0000, 4px 4px 1px #ff0000;
+ }
+
+/* ف الـ Hover يولي الحمر غالب */
+.dark-mode .skill-item:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    box-shadow: 6px 6px 5px #000000;
+    color: #000;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+#skills-section {
+    scroll-margin-top: 100px; /* كيعطي شوية د التيساع فوق السيكشن فاش كيوصل ليها السكرول */
+}
+
+/*test*/
+
+ .bottom-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    position: absolute;
+    top: 2600px; /* هبطها لتحت فين سالاو الـ Skills */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* العناوين الصفرين */
+.section-header {
+    background-color: #FDD336;
+    border: 3px solid #000;
+    padding: 8px 15px;
+    font-weight: 900;
+    font-size: 1.3rem;
+    box-shadow: 4px 4px 0px #000;
+    margin-bottom: 15px;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+/* الكارط الكبيرة */
+.main-card {
+    background: #fff;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    padding: 25px;
+    min-width: 380px;
+}
+
+/* ستايل القراية */
+.edu-card h3 { 
+    margin: 0; 
+    font-size: 1.2rem; 
+    font-weight: 800;
+}
+.uni-name { 
+    font-family: 'Courier New', Courier, monospace; 
+    margin: 10px 0; 
+    font-size: 1.1rem;
+}
+.date-badge {
+    background: #5BD8EE; /* نفس اللون الشيبي اللي عندك */
+    border: 2px solid #000;
+    padding: 4px 12px;
+    display: inline-block;
+    font-weight: bold;
+    box-shadow: 3px 3px 0px #000;
+    margin: 12px 0;
+}
+.location { font-size: 0.9rem; font-weight: 600; }
+
+/* ستايل اللغات */
+.lang-row {
+    border: 3px solid #000;
+    padding: 10px 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px; /* زدت شوية الـ radius باش تشبه للتصويرة */
+    box-shadow: 4px 4px 0px #000;
+    font-weight: 700;
+}
+
+.level-squares { display: flex; gap: 6px; }
+.sq {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #000;
+    background: #fff;
+} 
+.sq.fill { 
+    background: #FDD336; 
+    /* الضل اللي طلبتي مع تعديل بسيط فـ الـ Blur باش يبقى "Solid" */
+    box-shadow: 3px 3px 0px #000; 
+}
+
+/* وإيلا بغيتي الـ Row كاملة تحرك فاش تدوز فوقها الماوس (Hover) */
+.lang-row:hover .sq.fill {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #000;
+}
+.level-squares { 
+    display: flex; 
+    gap: 10px; /* كبرنا الفراغ باش الضل ياخد راحتو */
 }
 
