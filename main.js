@@ -252,18 +252,6 @@ if (bottomSection) {
     bottomObserver.observe(bottomSection);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 const contactObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
