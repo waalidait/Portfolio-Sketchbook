@@ -23,4 +23,4 @@ Welcome to my personal portfolio! This project features a unique **Scrapbook** a
 ## 🛠️ How to Run Locally
 1. Clone the repository:  
    ```bash
-   git clone [https://github.com/waalidait/walid-portfolio.git](https://github.com/waalidait/walid-portfolio.git)
+   git clone [https://github.com/waalidait/Portfolio-Sketchbook.git]
