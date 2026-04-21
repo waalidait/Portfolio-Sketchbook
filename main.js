@@ -234,3 +234,45 @@ const badge = document.querySelector('.skill-badge');
 if (badge) {
     skillObserver.observe(badge);
 }
+
+
+const bottomObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, {
+    threshold: 0.1 // كيبدا الـ animation غير يبان الطرف الأول ديال السيكشن
+});
+
+// قُل للمراقب يحضي الـ container التحتاني
+const bottomSection = document.querySelector('.bottom-container');
+if (bottomSection) {
+    bottomObserver.observe(bottomSection);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+const contactObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, { threshold: 0.1 });
+
+const contactSection = document.querySelector('.contact-section');
+if (contactSection) {
+    contactObserver.observe(contactSection);
+}

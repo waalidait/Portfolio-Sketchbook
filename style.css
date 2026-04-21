@@ -104,6 +104,7 @@
 body {
     background-color: var(--bg-outside);
     transition: background-color 0.5s ease;
+    
 }
 
  .paper-sheet { 
@@ -1292,11 +1293,9 @@ html, body {
     cursor: url('https://cdn-icons-png.flaticon.com/32/3222/3222672.png'), auto;
 }
 
-/* إيلا بغيتي السهم يتبدل فاش يحط المستخدم الماوس على الروابط */
-a, button {
-    cursor: url('https://cdn-icons-png.flaticon.com/32/1087/1087815.png'), pointer;
+  a, button {
+    cursor: url('https://cdn.cursors-4u.net/previews/paper-airplane-19477b19-32.webp') 32 32, auto !important;
 }
-
 
 /* كنخبيو السهم العادي في الصفحة كاملة */
  /* خبي الماوس العادية */
@@ -1709,7 +1708,9 @@ html {
     background-color: #FDD336;
     border: 3px solid #000;
     padding: 8px 15px;
-    font-weight: 900;
+    font-weight: bold;
+    font-family: Google Sans;
+    
     font-size: 1.3rem;
     box-shadow: 4px 4px 0px #000;
     margin-bottom: 15px;
@@ -1784,3 +1785,424 @@ html {
     gap: 10px; /* كبرنا الفراغ باش الضل ياخد راحتو */
 }
 
+
+.dark-mode .section-header {
+    background-color: #ffffff; /* خلفية بيضاء */
+    color: #000000;            /* كتابة كحلة */
+    border-color: #4a4a4a;     /* إطار رمادي */
+    
+    /* ضو حمر داير بيها كاملة + خيال قاصح */
+    box-shadow: 0px 0px 12px #ff0000, 4px 4px 0px #ff0000;
+}
+.dark-mode .main-card {
+    background-color: #1a1a1a; /* رمادي غامق بزاف */
+    color: #ffffff;            /* كتابة بيضاء باش تبان لداخل */
+    border-color: #4a4a4a;     /* إطار رمادي */
+    
+    /* الخيال الحمر اللي طلبتي */
+    box-shadow: 0px 0px 15px #ff0000, 8px 8px 0px #ff0000;
+}
+
+/* تعديل الكتابة لداخل باش تبقى واضحة */
+.dark-mode .uni-name, .dark-mode .location {
+    color: #e0e0e0; 
+}
+
+/* السطر ديال اللغة */
+.dark-mode .lang-row {
+    background-color: #2a2a2a; /* رمادي فاتح شوية */
+    color: #ffffff;
+    border-color: #4a4a4a;
+    box-shadow: 0px 0px 8px #ff0000, 4px 4px 0px #ff0000;
+}
+
+/* المربعات ديال المستوى */
+.dark-mode .sq {
+    border-color: #4a4a4a;
+    background-color: #1a1a1a;
+}
+
+/* المربعات العامرة (Yellow ف النهار، ولكن ف الليل خيالها حمر) */
+.dark-mode .sq.fill {
+    background-color: #FDD336; /* خليتها صفراء باش تميز المستوى */
+    box-shadow: 2px 2px 5px #ff0000; /* ضو حمر صغيور */
+    border-color: #ff0000;
+}
+
+.dark-mode .date-badge {
+    background-color: #ff0000; /* يولي حمر باش يهرس الرمادي */
+    color: #fff;
+    border-color: #000;
+    box-shadow: 3px 3px 0px #4a4a4a;
+}
+
+/*test*/
+.bottom-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    position: absolute;
+    top: 2600px;
+    width: 100%;
+    box-sizing: border-box;
+    
+    /* هادو هما اللي كيزيدو الـ Animation */
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.8s ease-out;
+}
+
+/* الكلاس اللي غايزيدها JS ملي توصل ليها */
+.bottom-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+ /* Container الأساسي */
+.contact-section {
+    position: absolute;
+    top: 3000px; /* ضبط هاد العبار على حسب طول الصفحة عندك */
+    width: 100%;
+    padding: 0 5% 100px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+/* الصندوق الكبير ديال العنوان */
+.get-in-touch-badge {
+    background-color: #FDD336;
+    padding: 25px 30px; /* تيساع لداخل باش تبان الخلفية كبيرة */
+    display: inline-block;
+    border: 4px solid #000;
+    box-shadow: 6px 6px 0px #000000; /* ضل أحمر مجهد */
+    font-size: 20px;
+     color: #000;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.amazing-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family:Google Sans;
+     margin-left: 200px;
+    color: #000;
+ }
+
+/* ترتيب السوشيال ميديا في سطر واحد */
+.scrapbook-row {
+    display: flex;
+     gap: 100px;
+    margin-top: 80px;
+    padding-left: 20px;
+}
+
+.scrap-item {
+    position: relative;
+}
+
+/* ستايل الكارطس (الصناديق) */
+.scrap-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 170px;
+    border: 4px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    text-decoration: none;
+    color: #000;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ألوان الخلفيات */
+.yellow-bg { background-color: #FDD336; transform: rotate(-3deg); }
+.blue-bg { background-color: #5BD8EE; transform: rotate(4deg); }
+.green-bg { background-color: #4ADE80; transform: rotate(-2deg); }
+
+.scrap-card i { font-size: 3.5rem; }
+.social-label {
+    font-weight: 900;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* السكوتش (Tape) */
+.tape {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 40px;
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: none;
+}
+.yellow-tape { background: #FDD336; transform: translateX(-50%) rotate(-8deg); }
+.blue-tape { background: #5BD8EE; transform: translateX(-50%) rotate(5deg); }
+.green-tape { background: #4ADE80; transform: translateX(-50%) rotate(-3deg); }
+
+/* تأثير الـ Hover */
+.scrap-item:hover .scrap-card {
+    transform: rotate(0deg) scale(1.1);
+    box-shadow: 12px 12px 0px #000000; /* الضل كيتحول للأحمر */
+    z-index: 10;
+}
+
+.scrap-item:hover .tape {
+    opacity: 0.2;
+}
+
+/* دعم الـ Dark Mode */
+body.dark-mode .get-in-touch-badge,
+body.dark-mode .amazing-text {
+    color: #fff; /* إيلا بغيتي الكتبه تولي بيضا، ولا خليها كحلا إيلا بغيتي Contrast */
+}
+body.dark-mode .get-in-touch-badge {
+    border-color: #fff;
+}
+
+/* العنوان الكبير Get In Touch */
+body.dark-mode .get-in-touch-badge {
+    background-color: #ffffff; /* بيضاء كتشعل */
+    color: #000000;            /* كتبة كحلة */
+    border-color: #4a4a4a;     /* إطار رمادي */
+    box-shadow: 0px 0px 15px #ff0000, 6px 6px 0px #ff0000;
+}
+
+/* النص اللي حداه */
+body.dark-mode .amazing-text {
+    color: #ffffff; /* أبيض ناصع */
+}
+
+/* --- الإعدادات العامة للكارطس ف الـ Dark Mode --- */
+body.dark-mode .scrap-card {
+    background-color: #1a1a1a; /* الرمادي الغامق الموحد */
+    border-color: #4a4a4a;
+    color: #fff;
+    /* حيدنا الـ box-shadow الموحد باش نديرو لكل وحدة لونها */
+}
+
+/* --- GitHub (الصفراء) --- */
+body.dark-mode .yellow-bg {
+    border-color: #FDD336; /* إطار أصفر */
+}
+body.dark-mode .yellow-bg .social-label, 
+body.dark-mode .yellow-bg i {
+    color: #FDD336;
+}
+/* خيال أصفر خفيف 50% شفافية */
+body.dark-mode .yellow-bg {
+    box-shadow: 0px 0px 15px rgba(253, 211, 54, 0.5), 8px 8px 0px #FDD336;
+}
+
+/* --- LinkedIn / Blue (الشيبية) --- */
+body.dark-mode .blue-bg {
+    border-color: #5BD8EE;
+}
+body.dark-mode .blue-bg .social-label, 
+body.dark-mode .blue-bg i {
+    color: #5BD8EE;
+}
+/* خيال شبي خفيف 50% شفافية */
+body.dark-mode .blue-bg {
+    box-shadow: 0px 0px 15px rgba(91, 216, 238, 0.5), 8px 8px 0px #5BD8EE;
+}
+
+/* --- Green / Others (الخضراء) --- */
+body.dark-mode .green-bg {
+    border-color: #4ADE80;
+}
+body.dark-mode .green-bg .social-label, 
+body.dark-mode .green-bg i {
+    color: #4ADE80;
+}
+/* خيال خضر خفيف 50% شفافية */
+body.dark-mode .green-bg {
+    box-shadow: 0px 0px 15px rgba(74, 222, 128, 0.5), 8px 8px 0px #4ADE80;
+}
+
+body.dark-mode .scrap-item:hover .yellow-bg { box-shadow: 0px 0px 25px #FDD336, 12px 12px 0px #FDD336; }
+body.dark-mode .scrap-item:hover .blue-bg { box-shadow: 0px 0px 25px #5BD8EE, 12px 12px 0px #5BD8EE; }
+body.dark-mode .scrap-item:hover .green-bg { box-shadow: 0px 0px 25px #4ADE80, 12px 12px 0px #4ADE80; }
+
+
+.line-footer {
+    width: 100%;
+    margin-top: 100px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* باش يحترم الترتيب تحت السيكشنز اللي قبلو */
+}
+
+/* السطور اللي مباعدين بـ 20px من الجناب */
+.separator-line {
+    width: calc(100% - 40px); /* 20px space من اليمين و 20px من اليسار */
+    height: 3px;
+    background-color: #000;
+    margin: 5px 0;
+}
+footer{
+    position: absolute;
+     top: 1000px;
+}
+/* السطر اللي فيه المعلومات والروابط */
+.footer-main-row {
+    width: calc(100% - 60px); /* مباعد شوية كتر باش يجي موسط */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* جهة السمية */
+.footer-left-part .name {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #000;
+    letter-spacing: 2px;   /* كيزيد التيساع بين الحروف */
+    text-transform: uppercase;
+}
+
+.footer-left-part .role {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.85rem;
+    margin-left: 5px;
+}
+
+/* جهة الروابط */
+.footer-right-part {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-right-part a {
+    text-decoration: none;
+    color: #474545;
+    font-weight: 800;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.footer-right-part a:hover {
+    color: #ff0000; /* الـ hover بالأحمر المجهد */
+    transform: translateY(-2px);
+}
+
+/* الحقوق التحتانية */
+.footer-bottom {
+    width: calc(100% - 40px);
+    text-align: left;
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #727171;
+    margin: 0;
+}
+
+/* --- دعم الـ Dark Mode --- */
+body.dark-mode .separator-line {
+    background-color: #fff;
+}
+
+body.dark-mode .footer-left-part .name,
+body.dark-mode .footer-right-part a,
+body.dark-mode .footer-bottom p {
+    color: #fff;
+}
+
+body.dark-mode .footer-left-part .role {
+    color: #ccc;
+}
+
+.arrow-container {
+    position: absolute;
+    /* هاد القياسات غاتبقى تبدل فيهم حتى يجي السهم فين بغيتي */
+    top: 280px;       /* شحال مهبط من الفوق */
+    right: 300px;   /* شحال خارج على اليمين ديال الكلمة */
+    z-index: 10;     /* باش يجي فوق كاع العناصر */
+}
+
+.floating-arrow {
+    width: 130px;      /* صغرنا الحجم باش ما تغطيش على الكتبه */
+    height: auto;
+    
+    /* دوران باش السهم يشوف للفوق (جرب هاد الزاوية) */
+    transform: rotate(-10deg); 
+    
+    /* إيلا كان السهم أصلاً كيشوف لليمن، هاد -45 غاتخليه يشوف لجهة الشمال شرقي */
+    /* إيلا بغيتيه يشوف للفوق نيشان جرب: rotate(-90deg) */
+    
+    pointer-events: none;
+    animation: bounceUp 2s infinite ease-in-out;
+}
+ /* ملي كيكون الـ Dark Mode خدام، كنقلبو ألوان السهم */
+body.dark-mode .floating-arrow {
+    /* invert(1) كترد الكحل أبيض والأبيض كحل */
+    /* brightness(2) كتزيد تضوي السهم باش يبان ناصع */
+    filter: invert(1) brightness(2);
+}
+
+ 
+
+ .get-in-touch-extra {
+    position: absolute;
+    top: 300px;
+    right: 67px;
+    background-color: #ff0000;
+    color: #fff;
+    padding: 10px 25px;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0px #000; /* الضل الأصلي */
+    font-size: 1.5rem;
+    font-weight: 900;
+    transform: rotate(-5deg);
+    z-index: 5;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.1s ease; /* سرعة البرق باش تحس بالضغطة */
+}
+
+/* ملي يحط الماوس (Hover) */
+.get-in-touch-extra:hover {
+    background-color: #d10000; /* كتحماق شوية */
+}
+
+/* اللحظة فاش كيورك (الضغطة الحقيقية) */
+.get-in-touch-extra:active {
+    /* كنهبطو البطمة جيهة اليمين ولتحت بنفس قياس الضل */
+    transform: rotate(-5deg) translate(6px, 6px); 
+    /* كنحيدو الضل باش تبان بلي لصقات مع الأرض */
+    box-shadow: 0px 0px 0px #000; 
+}
+
+/* Dark Mode التعديل */
+body.dark-mode .get-in-touch-extra {
+    background-color: #FDD336;
+    color: #000;
+    border-color: #000000;
+    box-shadow: 6px 6px 0px #ff0000;
+}
+
+body.dark-mode .get-in-touch-extra:active {
+    /* نفس الحركة في الداك مود ولكن مع الضل الأحمر */
+    transform: rotate(-5deg) translate(6px, 6px);
+    box-shadow: 0px 0px 0px #ff0000;
+}
+
+html {
+    scroll-behavior: smooth;
+}
