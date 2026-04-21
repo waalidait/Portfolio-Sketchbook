@@ -16,7 +16,8 @@ Welcome to my personal portfolio! This project features a unique **Scrapbook** a
 
 ## 📸 Preview
 *(You can add a screenshot or GIF of your site here once it's hosted)*
-<img width="531" height="189" alt="{31069C19-307A-4A0D-9A7F-22BB66169B66}" src="https://github.com/user-attachments/assets/6cdc6af3-8c38-4f73-baaf-75f704e4891e" />
+  <img width="2512" height="7892" alt="127 0 0 1_5500_portfolio3_index html (17)" src="https://github.com/user-attachments/assets/6fe29f8f-e601-4e0c-838c-db5a13410a04" />
+   <img width="2512" height="7892" alt="127 0 0 1_5500_portfolio3_index html (18)" src="https://github.com/user-attachments/assets/9176a68e-b0b9-4c5b-933c-7ea5df0851eb" />
 
 
 ## 🛠️ How to Run Locally
