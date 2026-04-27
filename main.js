@@ -264,3 +264,23 @@ const contactSection = document.querySelector('.contact-section');
 if (contactSection) {
     contactObserver.observe(contactSection);
 }
+
+
+// ── Mobile Menu Toggle ──
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav  = document.getElementById('mobileNav');
+
+if (menuToggle && mobileNav) {
+    menuToggle.addEventListener('click', () => {
+        mobileNav.classList.toggle('open');
+        menuToggle.textContent = mobileNav.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu when a link is tapped
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+            menuToggle.textContent = '☰';
+        });
+    });
+}

@@ -3,6 +3,9 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+<link rel="stylesheet" href="responsive-additions.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Syne:wght@800&display=swap" rel="stylesheet">
@@ -55,15 +58,31 @@
  
 
  <div class="paper-sheet" id="home">
-         <header>
-        <nav>
-            <button class="header">WA</button>
-            <a href="#home">home</a>
-            <a href="#about">about</a>
-            <a href="#journey1">journey</a>
-            <a href="#skills-section">Skills</a>
-            <button class="icon"><i class="fa-solid fa-moon" style="color: rgb(30, 48, 80);"></i></button>
-        </nav>
+    <header>
+         <nav>
+    <button class="header">WA</button>
+
+    <!-- Desktop links (hidden on mobile via CSS) -->
+    <a href="#home">home</a>
+    <a href="#about">about</a>
+    <a href="#journey1">journey</a>
+    <a href="#skills-section">Skills</a>
+
+    <!-- Mobile hamburger (only visible on mobile via CSS) -->
+    <button class="mobile-menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+
+    <!-- Dark mode toggle -->
+    <button class="icon"><i class="fa-solid fa-moon" style="color: rgb(30, 48, 80);"></i></button>
+</nav>
+
+<!-- Mobile dropdown (sits just below the nav bar) -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="#home" class="mobile-nav-link">Home</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#journey1" class="mobile-nav-link">Journey</a>
+    <a href="#skills-section" class="mobile-nav-link">Skills</a>
+    <a href="#contact-footer" class="mobile-nav-link">Contact</a>
+</div>
     </header>
 
         <div class="hero-section">
