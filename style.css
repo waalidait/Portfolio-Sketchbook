@@ -2210,127 +2210,130 @@ html {
 
  
 
+ /* ================================================================
+   RESPONSIVE ADDITIONS v3 — Walid's Sketchbook Portfolio
+   Based on full audit of index.html & style.css
+   ================================================================
+   HOW TO USE:
+   1. Save this file as  responsive-additions.css  next to style.css
+   2. In <head>, add ONE line right after your style.css link:
+         <link rel="stylesheet" href="responsive-additions.css">
+   3. Remove the DUPLICATE <meta name="viewport"> in <head>
+      (you have it twice — keep only the first one)
+   ================================================================ */
 
- /* ============================================================
-   RESPONSIVE ADDITIONS v2 — Walid's Sketchbook Portfolio
-   Replace any previous responsive-additions.css with this file.
-   In <head>, add ONE line after style.css:
-   <link rel="stylesheet" href="responsive-additions.css">
-   ============================================================ */
 
-/* ─────────────────────────────────────────────────────────────
-   0. TOUCH SCREENS — disable custom cursor
-───────────────────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────
+   ALWAYS: hide mobile-only elements on desktop/tablet
+   Fixes the "duplicate nav items" bug
+────────────────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+    .mobile-menu-toggle { display: none !important; }
+    .mobile-nav          { display: none !important; }
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   ALWAYS: disable the custom URL cursor on touch devices
+   (it breaks on mobile & causes layout jank)
+────────────────────────────────────────────────────────────── */
 @media (pointer: coarse) {
-    html, body { cursor: auto; }
+    html, body { cursor: auto !important; }
     a, button  { cursor: pointer !important; }
     .cursor-dot,
     .cursor-outline,
     .trail { display: none !important; }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   FIX 1a — DESKTOP: always hide mobile-only elements
-   This stops the hamburger / dropdown appearing on large screens
-   and eliminates the "duplicate nav links" issue.
-───────────────────────────────────────────────────────────── */
-@media (min-width: 769px) {
-    .mobile-menu-toggle { display: none !important; }
-    .mobile-nav          { display: none !important; }
-}
 
-/* ─────────────────────────────────────────────────────────────
-   LARGE DESKTOP CAP
-───────────────────────────────────────────────────────────── */
-@media (min-width: 1400px) {
-    .paper-sheet {
-        width: calc(100% - 200px);
-        max-width: 1600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   TABLET / SMALL LAPTOP  (769px – 1100px)
-───────────────────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────
+   TABLET  769px – 1100px  (light fixes only)
+────────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) and (min-width: 769px) {
     .paper-sheet { width: calc(100% - 40px); margin: 10px auto; }
 
-    nav { gap: 18px; }
-    .header { margin-right: 80px !important; }
-    .icon   { margin-right: 0 !important; }
+    /* Nav: tighten logo gap */
+    .header { margin-right: 200px !important; }
+    .icon   { margin-right: 80px !important; }
 
-    .hero-section { max-width: 55%; }
-    .my-photo { right: -250px; width: 260px; height: 300px; }
+    /* Hero photo: bring it in from way-right */
+    .my-photo { right: -280px !important; width: 270px; height: 310px; }
 
+    /* Arrow & CTA: stop them falling off */
+    .arrow-container     { right: 100px !important; top: 270px !important; }
+    .get-in-touch-extra  { right: 0px !important; top: 295px !important; }
+
+    /* Floating icons: keep them inside paper */
     .icon-1 { left: 55vw !important; }
-    .icon-2 { left: 75vw !important; }
-    .icon-3 { left: 48vw !important; }
+    .icon-2 { left: 75vw !important; bottom: 200px !important; }
+    .icon-3 { left: 50vw !important; }
 
-    .get-in-touch-extra { right: 20px; font-size: 1.1rem; padding: 8px 16px; }
-    .arrow-container    { right: 160px; }
+    /* Journey map */
+    .main-container { left: 200px !important; }
 
-    .main-container {
-        left: 50%;
-        transform: translateX(-50%) translateY(100px);
-    }
-    .main-container.show-up { transform: translateX(-50%) translateY(0); }
+    /* Bottom section */
+    .bottom-container { top: 2700px !important; }
 
-    .skills-wrapper { gap: 30px; }
-    .skills-card    { width: 280px; }
-    .main-card      { min-width: 280px; }
+    /* Contact */
+    .contact-section { top: 3200px !important; }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   MOBILE  (≤ 768px)
-   All five specific fixes live here.
-───────────────────────────────────────────────────────────── */
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE  ≤ 768px   ALL FIVE FIXES LIVE HERE
+────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-    /* ── Base reset ── */
-    body {
-        display: block;
-        overflow-x: hidden;
-    }
+    /* ── Base: stop horizontal overflow ── */
+    html, body { overflow-x: hidden; }
+    body        { display: block !important; }
 
+    /* Kill the HUGE spacer divs that push everything down */
+    div[style*="height: 1500px"],
+    div[style*="height:1500px"] { display: none !important; }
+
+    /* The margin-top:1000px ghost div at the bottom */
+    div[style*="margin-top: 1000px"] { margin-top: 0 !important; height: 0 !important; }
+
+    /* Paper sheet — normal width, auto height */
     .paper-sheet {
-        width: 93%;
-        margin: 8px auto 40px auto;
-        padding: 12px;
-        box-shadow: 5px 5px 0px var(--text-main);
-        min-height: unset;
-        padding-bottom: 60px;
+        width: 94% !important;
+        min-height: unset !important;
+        padding: 10px 10px 60px 10px !important;
+        padding-bottom: 60px !important;
+        margin: 6px auto 30px auto !important;
+        box-shadow: 5px 5px 0px #000 !important;
+        box-sizing: border-box !important;
     }
 
-    /* Kill the giant inline spacer divs */
-    .paper-sheet > div[style*="height: 1500px"],
-    .paper-sheet > div[style*="height:1500px"],
-    .paper-sheet > div[style*="margin-top: 1000px"] {
-        display: none !important;
-    }
 
-    /* ════════════════════════════════════════════════
-       FIX 1 — NAV: desktop links hidden, hamburger shown
-    ════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════════
+       FIX 1a — NAV: hamburger visible, desktop links hidden
+    ═══════════════════════════════════════════════════════ */
     header {
-        height: auto;
-        padding: 10px 12px;
-        flex-wrap: wrap;
-        gap: 8px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+        height: auto !important;
+        padding: 8px 10px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        margin-bottom: 0 !important;
     }
 
-    nav > a { display: none; } /* hide desktop links */
+    /* Hide all anchor links inside nav */
+    nav > a { display: none !important; }
 
+    /* Logo pill — left */
     .header {
-        margin-right: auto !important;
         margin-left: 0 !important;
+        margin-right: auto !important;
+        margin-top: 0 !important;
         order: 0;
+        flex-shrink: 0;
     }
 
+    /* Hamburger — centre */
     .mobile-menu-toggle {
         display: inline-flex !important;
         align-items: center;
@@ -2347,10 +2350,13 @@ html {
         flex-shrink: 0;
     }
 
+    /* Dark-mode toggle — right */
     .icon {
         margin-right: 0 !important;
         margin-left: 0 !important;
+        margin-top: 0 !important;
         order: 2;
+        flex-shrink: 0;
     }
 
     /* Mobile dropdown */
@@ -2361,13 +2367,11 @@ html {
         background-color: var(--about-bg);
         border: 3px solid var(--text-main);
         box-shadow: 5px 5px 0 var(--text-main);
-        padding: 10px 0;
-        margin-top: 6px;
+        padding: 8px 0;
         z-index: 999;
         box-sizing: border-box;
     }
     .mobile-nav.open { display: flex; }
-
     .mobile-nav a {
         text-decoration: none;
         color: var(--text-main);
@@ -2376,154 +2380,223 @@ html {
         font-style: italic;
         font-size: 15px;
         text-transform: uppercase;
-        padding: 13px 20px;
+        padding: 13px 18px;
         border-bottom: 1px solid rgba(0,0,0,0.08);
+        display: block;
     }
     .mobile-nav a:last-child { border-bottom: none; }
 
-    /* ════════════════════════════════════════════════
-       FIX 2 — HERO: avatar → name → desc → socials
-                      all centred, vertical order
-    ════════════════════════════════════════════════ */
+
+    /* ═══════════════════════════════════════════════════════
+       FIX 1b — HERO: full reorder
+       HTML order: .hy → .name → .description → .github-btn
+                   → .linkedin-btn → .arrow-container →
+                   .get-in-touch-extra → div>.my-photo
+       We use order: to reorder visually without touching HTML.
+    ═══════════════════════════════════════════════════════ */
     .hero-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        max-width: 100%;
-        width: 100%;
-        padding-left: 0;
-        padding-right: 0;
-        margin-top: 24px;
-        position: relative;
-        gap: 0;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 0 12px !important;
+        margin-top: 20px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        gap: 0 !important;
     }
 
-    /* Avatar — floated to top via order */
+    /* ── AVATAR FIRST ── */
+    /* The photo lives inside a <div> wrapper — target both */
+    .hero-section > div:has(.my-photo) {
+        order: -3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    /* FIX 1: Avatar — circular, centred, prominent */
     .my-photo {
-        order: -1;                      /* renders first */
         position: relative !important;
         right: auto !important;
         top: auto !important;
-        width: 150px;
-        height: 150px;
-        border-radius: 50% !important; /* circular */
-        object-fit: cover;
-        display: block;
-        margin: 0 auto 20px auto;
+        width: 145px !important;
+        height: 145px !important;
+        border-radius: 50% !important;     /* CIRCULAR */
+        object-fit: cover !important;
+        display: block !important;
+        margin: 0 auto !important;
         border: 3px solid #000 !important;
         box-shadow: 4px 4px 0 #000 !important;
+        z-index: auto !important;
     }
 
+    /* FIX 1c — Dark Mode: avatar border turns RED */
+    body.dark-mode .my-photo {
+        border-color: #ff4d4d !important;
+        box-shadow: 4px 4px 0 #ff4d4d !important;
+    }
+
+    /* ── FIX 1b: Ninja sticker — absolute, below avatar ── */
+    /* .job is a sibling OUTSIDE .hero-section in the HTML,
+       so we reposition it relative to the page flow */
+    .job {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        display: inline-block !important;
+        margin: 10px auto 16px auto !important;
+        z-index: 10 !important;
+        font-size: 14px !important;
+        padding: 6px 14px !important;
+    }
+
+    /* .fix tape mark — hide it */
+    .fix { display: none !important; }
+
+    /* ── "HY THERE!" ── */
     .hy {
-        font-size: 17px;
-        margin-bottom: 10px;
-        justify-content: center;
+        order: -2;
+        font-size: 16px !important;
+        margin-bottom: 6px !important;
+        margin-top: 0 !important;
+        justify-content: center !important;
+        text-align: center;
     }
 
+    /* ── Name ── */
     .name {
-        font-size: 28px;
-        letter-spacing: -0.5px;
-        text-align: center;
-        max-width: 100%;
+        order: -1;
+        font-size: 26px !important;
+        letter-spacing: -0.5px !important;
+        text-align: center !important;
+        max-width: 100% !important;
+        margin: 0 !important;
     }
 
+    /* ── Description ── */
     .description {
-        font-size: 13px;
-        max-width: 95%;
-        margin: 12px auto 0 auto;
-        text-align: center;
+        order: 0;
+        font-size: 12.5px !important;
+        max-width: 100% !important;
+        margin: 10px auto 0 auto !important;
+        text-align: center !important;
+        line-height: 1.55 !important;
     }
+    /* Suppress the <br> tags visually on narrow screens */
+    .description br { display: none; }
 
-    /* Social buttons — side by side, centred */
+    /* ── FIX 2: Social buttons — perfect horizontal row ── */
     .github-btn,
     .linkedin-btn {
         position: relative !important;
         top: auto !important;
         right: auto !important;
-        display: inline-flex;
-        flex-shrink: 0;
+        display: inline-flex !important;
+        flex-shrink: 0 !important;
     }
-    .github-btn  { margin-top: 16px; margin-right: 8px; }
-    .linkedin-btn { margin-top: 16px; }
 
-    /* ════════════════════════════════════════════════
-       FIX 3 — ARROW + "GET IN TOUCH": stay together
-    ════════════════════════════════════════════════ */
+    /* Wrap them in a centred row using a CSS trick:
+       Both buttons get order:1, placed in the flex column.
+       We give them the same order so they sit side-by-side
+       by also making hero-section flex-wrap:wrap at this point. */
+    .hero-section {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
 
-    /* Arrow container: pull out of absolute, show inline */
+    .github-btn {
+        order: 1;
+        margin: 14px 5px 0 0 !important;
+        align-self: auto !important;
+    }
+    .linkedin-btn {
+        order: 1;
+        margin: 14px 0 0 0 !important;
+        align-self: auto !important;
+    }
+
+    /* ── FIX 3: Arrow + "GET IN TOUCH" — stay together ── */
+
+    /* Arrow wrapper: relative flow, right after buttons */
     .arrow-container {
+        order: 2;
         position: relative !important;
         top: auto !important;
         right: auto !important;
-        display: inline-flex;
-        align-items: center;
-        margin-top: 18px;
-        order: 10;
-        pointer-events: none;
+        display: inline-flex !important;
+        align-items: center !important;
+        margin: 14px 4px 0 0 !important;
+        pointer-events: none !important;
+        flex-shrink: 0;
     }
 
     .floating-arrow {
-        width: 52px;
-        transform: rotate(-10deg);
-        margin-right: 4px;
+        width: 48px !important;
+        height: auto !important;
+        transform: rotate(-10deg) !important;
+        animation: bounceUp 2s infinite ease-in-out;
     }
 
-    /* "GET IN TOUCH" sticker: flows right after arrow */
+    /* GET IN TOUCH sticker — flows immediately after arrow */
     .get-in-touch-extra {
+        order: 2;
         position: relative !important;
         top: auto !important;
         right: auto !important;
-        display: inline-block;
-        margin-top: 18px;
-        font-size: 0.85rem;
-        padding: 7px 14px;
-        transform: rotate(-3deg);
-        order: 11;
+        display: inline-flex !important;
+        align-items: center !important;
+        margin: 14px 0 0 0 !important;
+        font-size: 0.82rem !important;
+        padding: 7px 12px !important;
+        transform: rotate(-3deg) !important;
+        flex-shrink: 0;
     }
 
-    /* Decorative floating icons cause horizontal scroll — hide them */
-    .icon-1, .icon-2, .icon-3 { display: none !important; }
+    /* Decorative floating icons — hidden: they use left:655px+ */
+    .icon-1,
+    .icon-2,
+    .icon-3 { display: none !important; }
+
 
     /* ── Carousel ── */
     .carousel-container {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        width: 100%;
-        margin: 20px 0;
+        width: 100% !important;
+        margin: 18px 0 0 0 !important;
     }
 
-    /* ── About section ── */
+
+    /* ── About label ── */
     .about {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        display: inline-block;
-        margin: 20px 0 10px 0;
+        display: inline-block !important;
+        margin: 20px 0 10px 0 !important;
     }
 
+    /* ── About text box ── */
     .text-box {
         position: relative !important;
         top: auto !important;
         left: auto !important;
         width: 100% !important;
-        max-width: 100%;
-        padding: 20px;
-        box-sizing: border-box;
-        margin-bottom: 24px;
+        max-width: 100% !important;
+        padding: 18px !important;
+        box-sizing: border-box !important;
+        margin-bottom: 22px !important;
+        animation: none !important;          /* disable scroll-driven anim */
+        opacity: 1 !important;
+        transform: none !important;
     }
-    .text { font-size: 15px; }
+    .text { font-size: 14px !important; line-height: 1.7 !important; }
 
-    /* "Full Stack Ninja" sticker */
-    .job {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        display: inline-block;
-        margin: 10px 0 20px 0;
-    }
-    .fix { display: none; }
 
     /* ── Journey strip header ── */
     .journey-full-strip {
@@ -2531,410 +2604,193 @@ html {
         top: auto !important;
         left: auto !important;
         transform: none !important;
-        width: 100% !important;
-        margin: 20px 0;
+        width: 94% !important;
+        margin: 20px auto !important;
         opacity: 1 !important;
+        transition: none !important;
     }
-    .journey-full-strip.show-strip { transform: none !important; }
+    .journey-full-strip.show-strip {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 
-    /* ════════════════════════════════════════════════
-       FIX 4 — JOURNEY MAP: compact, keeps content readable
-    ════════════════════════════════════════════════ */
+
+    /* ═══════════════════════════════════════════════════════
+       FIX 4 — JOURNEY MAP: scaled to fit mobile, content visible
+    ═══════════════════════════════════════════════════════ */
     .main-container {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        transform: none !important;
+
+        /* Scale to phone width */
+        width: 92% !important;
+        max-width: 360px !important;
+        height: 260px !important;       /* compact but tall enough for content */
+
+        margin: 14px auto 28px auto !important;
+        box-sizing: border-box !important;
+        background-color: #1a1a1a !important;
+
+        /* Reset JS animation state so it's always visible */
         opacity: 1 !important;
-        width: 90%;
-        max-width: 360px;
-        height: 240px;          /* compact fixed height */
-        margin: 16px auto 28px auto;
-        box-sizing: border-box;
-        background-color: #1a1a1a;
+        transform: none !important;
+        transition: none !important;
     }
-    .main-container.show-up { transform: none !important; opacity: 1 !important; }
+    .main-container.show-up {
+        opacity: 1 !important;
+        transform: none !important;
+    }
 
+    /* Map background image: contain so it doesn't crop */
     .treasure-img {
-        width: 145%;
-        max-width: none;
-        height: 100%;
-        object-fit: cover;
-        left: -20%;             /* centre the horizontal crop */
-        top: 0;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;  /* USE CONTAIN — shows full map */
+        z-index: 1 !important;
     }
 
-    .folding-paper { width: 55%; }
+    /* Folding paper: slightly narrower so map peeks through */
+    .folding-paper {
+        width: 55% !important;
+    }
 
-    /* Shrink text inside the flipping map card */
-    .exp-title   { font-size: 12px; }
-    .exp-date    { font-size: 11px; }
-    .exp-list    { font-size: 10px; padding-left: 14px; }
-    .exp-section { margin-bottom: 10px; }
+    /* Text inside the flip card */
+    .exp-title   { font-size: 11px !important; }
+    .exp-date    { font-size: 10px !important; }
+    .exp-list    { font-size: 9.5px !important; padding-left: 12px !important; line-height: 1.4 !important; }
+    .exp-section { margin-bottom: 10px !important; }
+    .map-back    { padding: 14px 12px !important; }
+
 
     /* ── Skill badge ── */
     .skill-badge {
         position: relative !important;
         top: auto !important;
-        display: inline-block;
-        margin: 20px 0 10px 0;
+        display: inline-block !important;
+        margin: 18px 0 12px 0 !important;
         opacity: 1 !important;
         transform: none !important;
+        transition: none !important;
     }
-    .skill-badge.active { transform: none !important; }
+    .skill-badge.active { opacity: 1 !important; transform: none !important; }
 
     /* ── Skills grid — single column ── */
     .skills-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        margin-top: 0;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 18px !important;
+        margin-top: 0 !important;
         opacity: 1 !important;
         transform: none !important;
+        transition: none !important;
     }
-    .skills-wrapper.show { transform: none !important; }
-    .skills-card { width: 90%; max-width: 360px; }
+    .skills-wrapper.show { opacity: 1 !important; transform: none !important; }
+    .skills-card { width: 92% !important; max-width: 340px !important; }
+
 
     /* ── Education & Languages ── */
     .bottom-container {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 12px;
-        gap: 20px;
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 20px 10px !important;
+        gap: 18px !important;
         opacity: 1 !important;
         transform: none !important;
-        width: 100%;
-        box-sizing: border-box;
+        transition: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
-    .bottom-container.show { transform: none !important; }
-    .main-card { min-width: unset; width: 100%; box-sizing: border-box; }
+    .bottom-container.show { opacity: 1 !important; transform: none !important; }
+    .main-card { min-width: unset !important; width: 100% !important; box-sizing: border-box !important; }
 
-    /* ════════════════════════════════════════════════
-       FIX 5 — CONTACT STICKY NOTES: 2-over-1 grid
-    ════════════════════════════════════════════════ */
+
+    /* ── FIX 5: Contact sticky notes — 2-over-1 grid ── */
     .contact-section {
         position: relative !important;
         top: auto !important;
         left: auto !important;
-        width: 100%;
-        padding: 20px 12px 60px 12px;
-        box-sizing: border-box;
+        width: 100% !important;
+        padding: 16px 10px 50px 10px !important;
+        box-sizing: border-box !important;
         opacity: 1 !important;
         transform: none !important;
+        transition: none !important;
     }
-    .contact-section.show { transform: none !important; }
+    .contact-section.show { opacity: 1 !important; transform: none !important; }
 
     .amazing-text {
         margin-left: 0 !important;
-        font-size: 1.05rem;
-        text-align: left;
+        font-size: 1rem !important;
+        text-align: left !important;
     }
 
-    /* Grid: two columns → first two cards fill row 1,
-       third card spans both columns and self-centres */
+    /* 2-over-1 grid */
     .scrapbook-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 36px 16px;
-        margin-top: 40px;
-        padding-left: 0;
-        justify-items: center;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: auto auto !important;
+        gap: 40px 16px !important;
+        margin-top: 36px !important;
+        padding-left: 0 !important;
+        justify-items: center !important;
     }
 
+    /* Third card spans full width → centres itself */
     .scrap-item:nth-child(3) {
-        grid-column: 1 / -1;   /* span both columns */
-        justify-self: center;
+        grid-column: 1 / -1 !important;
+        justify-self: center !important;
     }
 
-    .scrap-card   { width: 140px; height: 130px; }
-    .scrap-card i { font-size: 2.8rem; }
-    .social-label { font-size: 0.85rem; }
+    .scrap-card   { width: 135px !important; height: 125px !important; }
+    .scrap-card i { font-size: 2.6rem !important; }
+    .social-label { font-size: 0.82rem !important; }
 
     .tape {
-        top: -12px;
-        width: 80px;
-        height: 26px;
+        top: -12px !important;
+        width: 78px !important;
+        height: 26px !important;
     }
+
 
     /* ── Footer ── */
     footer {
         position: relative !important;
         top: auto !important;
-        width: 100%;
-        box-sizing: border-box;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 20px !important;
     }
     .footer-main-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        width: 90%;
-    }
-    .footer-right-part { flex-wrap: wrap; gap: 16px; }
-}
-
-/* ─────────────────────────────────────────────────────────────
-   VERY SMALL PHONES  (≤ 400px)
-───────────────────────────────────────────────────────────── */
-@media (max-width: 400px) {
-    .paper-sheet     { width: 96%; }
-    .name            { font-size: 22px; }
-    .skills-card     { width: 95%; }
-    .my-photo        { width: 118px; height: 118px; }
-
-    .scrap-card      { width: 120px; height: 115px; }
-    .scrap-card i    { font-size: 2.2rem; }
-
-    .floating-arrow      { width: 42px; }
-    .get-in-touch-extra  { font-size: 0.75rem; padding: 6px 10px; }
-
-    .main-container  { height: 200px; max-width: 100%; }
-}
-
-
-
-
-
-
-
-
-/* ============================================================
-   SECTION RESPONSIVE - WALID'S PORTFOLIO
-   (حط هاد الكود في آخر ملف CSS عندك)
-   ============================================================ */
-
-/* 1. السهم والـ Get in touch يبقاو ديما مجموعين */
-.arrow-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    z-index: 100;
-}
-
-/* 2. إخفاء المنيو ديال الموبايل في الـ PC */
-@media (min-width: 769px) {
-    .mobile-menu-toggle, .mobile-nav {
-        display: none !important;
-    }
-}
-
-/* 3. إصلاحات الموبايل (التلفون) */
-@media (max-width: 768px) {
-    
-    /* منع الـ Horizontal Scroll */
-    body {
-        overflow-x: hidden;
-        display: block;
-    }
-
-    .paper-sheet {
-        width: 92%;
-        margin: 10px auto;
-        padding: 15px;
-        min-height: auto;
-        box-sizing: border-box;
-    }
-
-    /* --- الترتيب الجديد (Hero Section) --- */
-    .hero-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin-top: 20px;
-        gap: 10px;
-    }
-
-    /* الترتيب: التصويرة (1) -> المعلومات (2) -> الأيقونات (3) */
-    
-    @media (max-width: 768px) {
-    
-    .hero-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative; /* ضروري باش الـ Ninja يتحكم في بلاصتو */
-        padding-top: 20px;
-    }
-
-    /* --- 1. التصويرة (دائرية) --- */
-    .my-photo {
-        order: 1 !important;
-        width: 130px !important;
-        height: 130px !important;
-        border-radius: 50% !important;
-        object-fit: cover;
-        border: 3px solid #000;
-        box-shadow: 4px 4px 0 #000;
-        margin-bottom: 10px !important;
-        position: relative;
-    }
-
-    /* --- 2. Full Stack Ninja (لاصقة مع التصويرة) --- */
-    .job {
-        display: inline-block !important;
-        position: absolute !important;
-        top: 110px; /* كتحكم في الهبوط ديالها */
-        right: 20%; /* كتحكم في القرب ديالها من التصويرة */
-        transform: rotate(10deg) !important;
-        font-size: 10px !important;
-        padding: 5px 10px !important;
-        z-index: 10;
-        order: 2 !important;
-    }
-
-    /* --- 3. السمية والمعلومات --- */
-    .hy, .name, .description {
-        order: 3 !important;
-        margin-bottom: 8px;
-    }
-
-    .name { font-size: 24px; }
-    .description { font-size: 13px; max-width: 85%; }
-
-    /* --- 4. الأيقونات (متوازيين في سطر واحد) --- */
-    /* غادي نجمعوهم بـ Flexbox باش يجيوا مقادين */
-    .hero-section > a[class*="-btn"] {
-        display: none; /* كنخفيوهم باش نعاودو نرتلبوهم */
-    }
-
-    /* إيلا كان عندك Container جامعهم، هادا هو الكود ديالو */
-    /* إيلا ماعندكش، هاد الكود غايطبق على أي "Link" وسط الـ Hero */
-    .hero-section .github-btn, 
-    .hero-section .linkedin-btn {
-        display: inline-flex !important;
-        order: 4 !important;
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
-        margin: 15px 10px !important; /* مسافة بيناتهم */
-        vertical-align: middle;
-    }
-
-    /* --- 5. السهم و Get In Touch --- */
-    .arrow-container {
-        order: 5 !important;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        margin-top: 15px;
-        width: 100%;
-    }
-
-    .get-in-touch-extra {
-        position: relative !important;
-        transform: rotate(-3deg);
-        margin: 0 !important;
-    }
-
-    .floating-arrow {
-        width: 35px;
-    }
-
-    /* إخفاء الأيقونات الطايرة اللي كتخربق الجناب */
-    .icon-1, .icon-2, .icon-3, .fix {
-        display: none !important;
-    }
-}
-    .name { font-size: 26px; }
-    .description { font-size: 14px; max-width: 90%; margin: 0 auto; }
-
-    /* الأيقونات (GitHub/LinkedIn) جنب بعضياتهم وتحت الوصف */
-    .hero-section > a[class*="-btn"] {
-        order: 3 !important; 
-        position: relative !important;
-        display: inline-flex !important;
-        top: auto !important;
-        right: auto !important;
-        margin: 10px 5px !important;
-    }
-
-    /* --- السهم و Get In Touch --- */
-    .arrow-container {
-        order: 4 !important;
-        position: relative !important;
-        margin-top: 20px !important;
-        width: 100%;
-    }
-
-    .get-in-touch-extra {
-        position: relative !important;
-        right: auto !important;
-        top: auto !important;
-        transform: rotate(-3deg);
-        margin: 0 !important;
-    }
-
-    .floating-arrow {
-        width: 40px;
-    }
-
-    /* --- Journey (الخريطة) --- */
-    .journey-full-strip {
-        position: relative !important;
-        width: 100% !important;
-        transform: none !important;
-        opacity: 1 !important;
-        margin: 30px 0;
-    }
-
-    .main-container {
-        position: relative !important;
-        left: auto !important;
-        transform: none !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
         width: 90% !important;
-        height: 220px !important; 
-        margin: 10px auto !important;
-        opacity: 1 !important;
     }
-
-    .treasure-img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-    }
-
-    /* --- Skills --- */
-    .skills-wrapper {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    /* --- Contact Section (2 over 1) --- */
-    .scrapbook-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        justify-items: center;
-        margin-top: 30px;
-    }
-
-    .scrap-item:nth-child(3) {
-        grid-column: 1 / -1; 
-    }
-
-    .scrap-card {
-        width: 130px;
-        height: 120px;
-    }
-
-    /* إخفاء العناصر الزائدة */
-    .icon-1, .icon-2, .icon-3, .fix {
-        display: none !important;
+    .footer-right-part {
+        flex-wrap: wrap !important;
+        gap: 14px !important;
     }
 }
 
-/* 4. إخفاء الكورسور في أجهزة اللمس */
-@media (pointer: coarse) {
-    .cursor-dot, .cursor-outline, .trail {
-        display: none !important;
-    }
+
+/* ──────────────────────────────────────────────────────────────
+   VERY SMALL PHONES  ≤ 400px
+────────────────────────────────────────────────────────────── */
+@media (max-width: 400px) {
+    .paper-sheet         { width: 97% !important; }
+    .name                { font-size: 21px !important; }
+    .my-photo            { width: 120px !important; height: 120px !important; }
+    .skills-card         { width: 96% !important; }
+    .scrap-card          { width: 118px !important; height: 112px !important; }
+    .scrap-card i        { font-size: 2.2rem !important; }
+    .floating-arrow      { width: 40px !important; }
+    .get-in-touch-extra  { font-size: 0.75rem !important; padding: 6px 10px !important; }
+    .main-container      { height: 220px !important; }
 }
