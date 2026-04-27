@@ -2211,21 +2211,37 @@ html {
  
 
 
-/* ============================================================
-   RESPONSIVE ADDITIONS — Walid's Sketchbook Portfolio
-   Add this entire block at the VERY BOTTOM of style.css
+ /* ============================================================
+   RESPONSIVE ADDITIONS v2 — Walid's Sketchbook Portfolio
+   Replace any previous responsive-additions.css with this file.
+   In <head>, add ONE line after style.css:
+   <link rel="stylesheet" href="responsive-additions.css">
    ============================================================ */
 
-/* ─── 1. DISABLE CUSTOM CURSOR ON TOUCH DEVICES ─── */
+/* ─────────────────────────────────────────────────────────────
+   0. TOUCH SCREENS — disable custom cursor
+───────────────────────────────────────────────────────────── */
 @media (pointer: coarse) {
     html, body { cursor: auto; }
-    a, button   { cursor: pointer !important; }
+    a, button  { cursor: pointer !important; }
     .cursor-dot,
     .cursor-outline,
     .trail { display: none !important; }
 }
 
-/* ─── 2. LARGE DESKTOP GUARD (max-width cap) ─── */
+/* ─────────────────────────────────────────────────────────────
+   FIX 1a — DESKTOP: always hide mobile-only elements
+   This stops the hamburger / dropdown appearing on large screens
+   and eliminates the "duplicate nav links" issue.
+───────────────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+    .mobile-menu-toggle { display: none !important; }
+    .mobile-nav          { display: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LARGE DESKTOP CAP
+───────────────────────────────────────────────────────────── */
 @media (min-width: 1400px) {
     .paper-sheet {
         width: calc(100% - 200px);
@@ -2235,70 +2251,68 @@ html {
     }
 }
 
-/* ─── 3. MEDIUM SCREENS (tablets, small laptops) ─── */
-@media (max-width: 1100px) {
-    /* Paper sheet breathing room */
-    .paper-sheet {
-        width: calc(100% - 40px);
-        margin: 10px auto;
-    }
+/* ─────────────────────────────────────────────────────────────
+   TABLET / SMALL LAPTOP  (769px – 1100px)
+───────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) and (min-width: 769px) {
+    .paper-sheet { width: calc(100% - 40px); margin: 10px auto; }
 
-    /* Nav: tighten gap */
     nav { gap: 18px; }
     .header { margin-right: 80px !important; }
     .icon   { margin-right: 0 !important; }
 
-    /* Hero: widen text area, pull photo in */
     .hero-section { max-width: 55%; }
-    .my-photo {
-        right: -250px;
-        width: 260px;
-        height: 300px;
-    }
+    .my-photo { right: -250px; width: 260px; height: 300px; }
 
-    /* Floating decorative icons — pull them in */
     .icon-1 { left: 55vw !important; }
     .icon-2 { left: 75vw !important; }
     .icon-3 { left: 48vw !important; }
 
-    /* GET IN TOUCH sticker + arrow */
-    .get-in-touch-extra {
-        right: 20px;
-        font-size: 1.1rem;
-        padding: 8px 16px;
-    }
-    .arrow-container { right: 160px; }
+    .get-in-touch-extra { right: 20px; font-size: 1.1rem; padding: 8px 16px; }
+    .arrow-container    { right: 160px; }
 
-    /* Journey map */
-    .main-container { left: 50%; transform: translateX(-50%) translateY(100px); }
+    .main-container {
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+    }
     .main-container.show-up { transform: translateX(-50%) translateY(0); }
 
-    /* Skills grid — 2 columns */
     .skills-wrapper { gap: 30px; }
-    .skills-card { width: 280px; }
-
-    /* Bottom cards */
-    .main-card { min-width: 280px; }
+    .skills-card    { width: 280px; }
+    .main-card      { min-width: 280px; }
 }
 
-/* ─── 4. MOBILE BREAKPOINT ─── */
+/* ─────────────────────────────────────────────────────────────
+   MOBILE  (≤ 768px)
+   All five specific fixes live here.
+───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
 
-    /* ── Body & paper ── */
+    /* ── Base reset ── */
     body {
-        display: block;          /* kill the centering flex so paper fits */
+        display: block;
         overflow-x: hidden;
     }
+
     .paper-sheet {
         width: 93%;
         margin: 8px auto 40px auto;
         padding: 12px;
         box-shadow: 5px 5px 0px var(--text-main);
         min-height: unset;
-        padding-bottom: 60px;   /* was 800px — let content dictate height */
+        padding-bottom: 60px;
     }
 
-    /* ── HEADER / NAV ── */
+    /* Kill the giant inline spacer divs */
+    .paper-sheet > div[style*="height: 1500px"],
+    .paper-sheet > div[style*="height:1500px"],
+    .paper-sheet > div[style*="margin-top: 1000px"] {
+        display: none !important;
+    }
+
+    /* ════════════════════════════════════════════════
+       FIX 1 — NAV: desktop links hidden, hamburger shown
+    ════════════════════════════════════════════════ */
     header {
         height: auto;
         padding: 10px 12px;
@@ -2309,26 +2323,16 @@ html {
         z-index: 1000;
     }
 
-    /* Logo button stays left */
+    nav > a { display: none; } /* hide desktop links */
+
     .header {
         margin-right: auto !important;
         margin-left: 0 !important;
+        order: 0;
     }
 
-    /* Dark-mode toggle goes to far right */
-    .icon {
-        margin-right: 0 !important;
-        margin-left: auto !important;
-    }
-
-    /* Desktop nav links → hidden by default on mobile */
-    nav > a {
-        display: none;
-    }
-
-    /* Hamburger button (we'll add it in the HTML note below) */
     .mobile-menu-toggle {
-        display: flex;
+        display: inline-flex !important;
         align-items: center;
         justify-content: center;
         width: 40px;
@@ -2339,10 +2343,17 @@ html {
         border-radius: 6px;
         cursor: pointer;
         font-size: 20px;
+        order: 1;
+        flex-shrink: 0;
+    }
+
+    .icon {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
         order: 2;
     }
 
-    /* Mobile dropdown nav */
+    /* Mobile dropdown */
     .mobile-nav {
         display: none;
         flex-direction: column;
@@ -2353,8 +2364,10 @@ html {
         padding: 10px 0;
         margin-top: 6px;
         z-index: 999;
+        box-sizing: border-box;
     }
     .mobile-nav.open { display: flex; }
+
     .mobile-nav a {
         text-decoration: none;
         color: var(--text-main);
@@ -2363,79 +2376,125 @@ html {
         font-style: italic;
         font-size: 15px;
         text-transform: uppercase;
-        padding: 12px 20px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding: 13px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
     }
     .mobile-nav a:last-child { border-bottom: none; }
 
-    /* ── HERO SECTION ── */
+    /* ════════════════════════════════════════════════
+       FIX 2 — HERO: avatar → name → desc → socials
+                      all centred, vertical order
+    ════════════════════════════════════════════════ */
     .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         max-width: 100%;
-        padding-left: 12px;
-        margin-top: 20px;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 24px;
         position: relative;
+        gap: 0;
     }
 
-    /* Photo: stack below text on mobile */
+    /* Avatar — floated to top via order */
     .my-photo {
+        order: -1;                      /* renders first */
         position: relative !important;
         right: auto !important;
         top: auto !important;
-        width: 180px;
-        height: 200px;
-        margin: 20px auto 0 auto;
+        width: 150px;
+        height: 150px;
+        border-radius: 50% !important; /* circular */
+        object-fit: cover;
         display: block;
+        margin: 0 auto 20px auto;
+        border: 3px solid #000 !important;
+        box-shadow: 4px 4px 0 #000 !important;
     }
 
-    .name  { font-size: 30px; letter-spacing: -0.5px; }
-    .hy    { font-size: 18px; }
+    .hy {
+        font-size: 17px;
+        margin-bottom: 10px;
+        justify-content: center;
+    }
+
+    .name {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+        text-align: center;
+        max-width: 100%;
+    }
+
     .description {
         font-size: 13px;
-        max-width: 100%;
-        margin-top: 14px;
+        max-width: 95%;
+        margin: 12px auto 0 auto;
+        text-align: center;
     }
 
-    /* Social buttons: reposition relative to hero flow */
+    /* Social buttons — side by side, centred */
     .github-btn,
     .linkedin-btn {
         position: relative !important;
         top: auto !important;
         right: auto !important;
         display: inline-flex;
-        margin: 16px 6px 0 0;
+        flex-shrink: 0;
     }
+    .github-btn  { margin-top: 16px; margin-right: 8px; }
+    .linkedin-btn { margin-top: 16px; }
 
-    /* GET IN TOUCH sticker + arrow: contain them */
+    /* ════════════════════════════════════════════════
+       FIX 3 — ARROW + "GET IN TOUCH": stay together
+    ════════════════════════════════════════════════ */
+
+    /* Arrow container: pull out of absolute, show inline */
     .arrow-container {
         position: relative !important;
         top: auto !important;
         right: auto !important;
-        display: none; /* hide decorative arrow on tiny screens */
+        display: inline-flex;
+        align-items: center;
+        margin-top: 18px;
+        order: 10;
+        pointer-events: none;
     }
+
+    .floating-arrow {
+        width: 52px;
+        transform: rotate(-10deg);
+        margin-right: 4px;
+    }
+
+    /* "GET IN TOUCH" sticker: flows right after arrow */
     .get-in-touch-extra {
         position: relative !important;
         top: auto !important;
         right: auto !important;
         display: inline-block;
-        margin: 12px 0 0 0;
-        font-size: 1rem;
-        padding: 8px 16px;
+        margin-top: 18px;
+        font-size: 0.85rem;
+        padding: 7px 14px;
         transform: rotate(-3deg);
+        order: 11;
     }
 
-    /* Floating decorative icons — hide on mobile (they cause scroll) */
+    /* Decorative floating icons cause horizontal scroll — hide them */
     .icon-1, .icon-2, .icon-3 { display: none !important; }
 
-    /* Carousel: keep it but let it scroll naturally */
+    /* ── Carousel ── */
     .carousel-container {
         position: relative !important;
         top: auto !important;
         left: auto !important;
         width: 100%;
-        margin: 24px 0;
+        margin: 20px 0;
     }
 
-    /* ── ABOUT ── */
+    /* ── About section ── */
     .about {
         position: relative !important;
         top: auto !important;
@@ -2443,6 +2502,7 @@ html {
         display: inline-block;
         margin: 20px 0 10px 0;
     }
+
     .text-box {
         position: relative !important;
         top: auto !important;
@@ -2455,7 +2515,7 @@ html {
     }
     .text { font-size: 15px; }
 
-    /* ── "Full Stack Ninja" sticker ── */
+    /* "Full Stack Ninja" sticker */
     .job {
         position: relative !important;
         bottom: auto !important;
@@ -2463,9 +2523,9 @@ html {
         display: inline-block;
         margin: 10px 0 20px 0;
     }
-    .fix { display: none; } /* purely decorative tape mark */
+    .fix { display: none; }
 
-    /* ── JOURNEY STRIP ── */
+    /* ── Journey strip header ── */
     .journey-full-strip {
         position: relative !important;
         top: auto !important;
@@ -2473,29 +2533,46 @@ html {
         transform: none !important;
         width: 100% !important;
         margin: 20px 0;
-        opacity: 1 !important; /* override JS animation for fallback */
+        opacity: 1 !important;
     }
     .journey-full-strip.show-strip { transform: none !important; }
 
-    /* ── JOURNEY MAP (folding card) ── */
+    /* ════════════════════════════════════════════════
+       FIX 4 — JOURNEY MAP: compact, keeps content readable
+    ════════════════════════════════════════════════ */
     .main-container {
         position: relative !important;
         top: auto !important;
         left: auto !important;
         transform: none !important;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 4/3;
-        margin: 20px auto;
+        opacity: 1 !important;
+        width: 90%;
+        max-width: 360px;
+        height: 240px;          /* compact fixed height */
+        margin: 16px auto 28px auto;
         box-sizing: border-box;
         background-color: #1a1a1a;
     }
-    .main-container.show-up { transform: none !important; }
+    .main-container.show-up { transform: none !important; opacity: 1 !important; }
 
-    .treasure-img { width: 100%; }
-    .folding-paper { width: 60%; }
+    .treasure-img {
+        width: 145%;
+        max-width: none;
+        height: 100%;
+        object-fit: cover;
+        left: -20%;             /* centre the horizontal crop */
+        top: 0;
+    }
 
-    /* ── SKILL BADGE ── */
+    .folding-paper { width: 55%; }
+
+    /* Shrink text inside the flipping map card */
+    .exp-title   { font-size: 12px; }
+    .exp-date    { font-size: 11px; }
+    .exp-list    { font-size: 10px; padding-left: 14px; }
+    .exp-section { margin-bottom: 10px; }
+
+    /* ── Skill badge ── */
     .skill-badge {
         position: relative !important;
         top: auto !important;
@@ -2506,7 +2583,7 @@ html {
     }
     .skill-badge.active { transform: none !important; }
 
-    /* ── SKILLS CARDS — single column stack ── */
+    /* ── Skills grid — single column ── */
     .skills-wrapper {
         flex-direction: column;
         align-items: center;
@@ -2516,12 +2593,9 @@ html {
         transform: none !important;
     }
     .skills-wrapper.show { transform: none !important; }
-    .skills-card {
-        width: 90%;
-        max-width: 360px;
-    }
+    .skills-card { width: 90%; max-width: 360px; }
 
-    /* ── EDUCATION & LANGUAGES ── */
+    /* ── Education & Languages ── */
     .bottom-container {
         position: relative !important;
         top: auto !important;
@@ -2538,7 +2612,9 @@ html {
     .bottom-container.show { transform: none !important; }
     .main-card { min-width: unset; width: 100%; box-sizing: border-box; }
 
-    /* ── CONTACT SECTION ── */
+    /* ════════════════════════════════════════════════
+       FIX 5 — CONTACT STICKY NOTES: 2-over-1 grid
+    ════════════════════════════════════════════════ */
     .contact-section {
         position: relative !important;
         top: auto !important;
@@ -2553,20 +2629,38 @@ html {
 
     .amazing-text {
         margin-left: 0 !important;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
+        text-align: left;
     }
 
-    /* Social scrapbook: stack vertically */
+    /* Grid: two columns → first two cards fill row 1,
+       third card spans both columns and self-centres */
     .scrapbook-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 36px 16px;
         margin-top: 40px;
         padding-left: 0;
+        justify-items: center;
     }
-    .scrap-card { width: 180px; height: 140px; }
 
-    /* ── FOOTER ── */
+    .scrap-item:nth-child(3) {
+        grid-column: 1 / -1;   /* span both columns */
+        justify-self: center;
+    }
+
+    .scrap-card   { width: 140px; height: 130px; }
+    .scrap-card i { font-size: 2.8rem; }
+    .social-label { font-size: 0.85rem; }
+
+    .tape {
+        top: -12px;
+        width: 80px;
+        height: 26px;
+    }
+
+    /* ── Footer ── */
     footer {
         position: relative !important;
         top: auto !important;
@@ -2579,26 +2673,23 @@ html {
         gap: 16px;
         width: 90%;
     }
-    .footer-right-part {
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    /* ── Huge spacer divs (clean them up on mobile) ── */
-    /* The inline `div style="height:1500px"` in HTML: we can't target it cleanly
-       via CSS alone without an ID. Workaround below catches known patterns. */
-    .paper-sheet > div[style*="height: 1500px"],
-    .paper-sheet > div[style*="height:1500px"],
-    .paper-sheet > div[style*="margin-top: 1000px"] {
-        display: none !important;
-    }
+    .footer-right-part { flex-wrap: wrap; gap: 16px; }
 }
 
-/* ─── 5. VERY SMALL PHONES ─── */
+/* ─────────────────────────────────────────────────────────────
+   VERY SMALL PHONES  (≤ 400px)
+───────────────────────────────────────────────────────────── */
 @media (max-width: 400px) {
-    .paper-sheet { width: 96%; }
-    .name { font-size: 24px; }
-    .skills-card { width: 95%; }
-    .scrap-card { width: 150px; height: 120px; }
-    .scrap-card i { font-size: 2.4rem; }
+    .paper-sheet     { width: 96%; }
+    .name            { font-size: 22px; }
+    .skills-card     { width: 95%; }
+    .my-photo        { width: 118px; height: 118px; }
+
+    .scrap-card      { width: 120px; height: 115px; }
+    .scrap-card i    { font-size: 2.2rem; }
+
+    .floating-arrow      { width: 42px; }
+    .get-in-touch-extra  { font-size: 0.75rem; padding: 6px 10px; }
+
+    .main-container  { height: 200px; max-width: 100%; }
 }
