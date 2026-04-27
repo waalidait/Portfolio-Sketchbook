@@ -2385,98 +2385,67 @@ html {
        FIX 2 — HERO: avatar → name → desc → socials
                       all centred, vertical order
     ════════════════════════════════════════════════ */
-    /* ════════════════════════════════════════════════
-   FIX 2 — HERO: Square Avatar + Ninja Sticker
-   Centered, vertical order with overlaps
-   ════════════════════════════════════════════════ */
-.hero-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 100%;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-top: 24px;
-    position: relative;
-    gap: 0;
-}
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 24px;
+        position: relative;
+        gap: 0;
+    }
 
-/* التصويرة مربعة وتكون هي الطبقة التحتانية */
-.my-photo {
-    order: -1; 
-    position: relative !important;
-    right: auto !important;
-    top: auto !important;
-    width: 150px;
-    height: 150px;
-    border-radius: 12px !important; /* مربعة بجوانب منحنية شوية */
-    object-fit: cover;
-    display: block;
-    margin: 0 auto 25px auto; /* مسافة لتحت باش يلقى الـ Sticker فين يبان */
-    border: 3px solid #000 !important;
-    box-shadow: 4px 4px 0 #000 !important;
-    z-index: 1; /* طبقة تحتانية */
-}
+    /* Avatar — floated to top via order */
+    .my-photo {
+        order: -1;                      /* renders first */
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        width: 150px;
+        height: 150px;
+        border-radius: 50% !important; /* circular */
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 20px auto;
+        border: 3px solid #000 !important;
+        box-shadow: 4px 4px 0 #000 !important;
+    }
 
-/* الـ Sticker ديال النينجا يجي لاصق وطالع فوق التصويرة */
-.job {
-    position: absolute !important;
-    top: 145px !important; /* كتحكم في شحال مغطي من التصويرة من التحت */
-    left: 50% !important;
-    transform: translateX(-50%) rotate(-3deg) !important;
-    z-index: 10 !important; /* طبقة فوقانية باش يغطي حاشية التصويرة */
-    font-size: 11px !important;
-    padding: 5px 12px !important;
-    background: #FFD700 !important; /* لون ذهبي باش يجي بحال Sticker حقيقي */
-    border: 2px solid #000 !important;
-    white-space: nowrap;
-}
+    .hy {
+        font-size: 17px;
+        margin-bottom: 10px;
+        justify-content: center;
+    }
 
-.hy {
-    font-size: 17px;
-    margin-bottom: 10px;
-    justify-content: center;
-}
+    .name {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+        text-align: center;
+        max-width: 100%;
+    }
 
-.name {
-    font-size: 28px;
-    letter-spacing: -0.5px;
-    text-align: center;
-    max-width: 100%;
-}
+    .description {
+        font-size: 13px;
+        max-width: 95%;
+        margin: 12px auto 0 auto;
+        text-align: center;
+    }
 
-.description {
-    font-size: 13px;
-    max-width: 95%;
-    margin: 12px auto 0 auto;
-    text-align: center;
-}
-
-     .hero-section {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    flex-wrap: wrap !important; /* كيسمح للعناصر الصغيرة تجي جنب بعضها */
-}
-
-.github-btn, 
-.linkedin-btn {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    display: inline-flex !important; /* كيردهم بلوكات جنب بعضياتهم */
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin: 16px 6px 0 6px !important; /* مسافة متساوية من الجناب باش يبقاو متوازيين */
-    order: 1 !important; /* كيحافظ على الترتيب ديالهم تحت الوصف */
-}
-
-/* إيلا بان ليك السهم كيدفعهم، تأكد أن السهم حتى هو عنده order مختلف أو خلي هاد التعديل */
-.github-btn { margin-right: 4px !important; }
-.linkedin-btn { margin-left: 4px !important; }
+    /* Social buttons — side by side, centred */
+    .github-btn,
+    .linkedin-btn {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+    .github-btn  { margin-top: 16px; margin-right: 8px; }
+    .linkedin-btn { margin-top: 16px; }
 
     /* ════════════════════════════════════════════════
        FIX 3 — ARROW + "GET IN TOUCH": stay together
