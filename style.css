@@ -2283,7 +2283,31 @@ html {
    MOBILE  ≤ 768px   ALL FIVE FIXES LIVE HERE
 ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+#loader {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        /* Dynamic Viewport Height هو السر باش تشد الشاشة كاملة */
+        height: 100dvh !important; 
+        background: #FDD336 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 99999 !important;
+        /* أنميشن الاختفاء */
+        transition: opacity 0.5s ease-out, visibility 0.5s !important;
+    }
 
+    /* كلاس غانزيدوه بـ JS باش يغبر اللودر */
+    #loader.fade-out {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
     /* ── Base: stop horizontal overflow ── */
     html, body { overflow-x: hidden; }
     body        { display: block !important; }
@@ -2785,7 +2809,7 @@ html {
         flex-wrap: wrap !important;
         gap: 14px !important;
     }
-}
+
 
 
 /* ──────────────────────────────────────────────────────────────

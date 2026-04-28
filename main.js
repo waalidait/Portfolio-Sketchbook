@@ -284,3 +284,18 @@ if (menuToggle && mobileNav) {
         });
     });
 }
+
+
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    
+    // كنتسناو واحد شوية باش اليوزر يشوف الأنميشن (مثلا 1.5 ثانية)
+    setTimeout(() => {
+        loader.classList.add('fade-out'); // كيبدا يغبر
+        
+        // من بعد نص ثانية (وقت الـ transition) كنحيدوه كاع من الصفحة
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500); 
+    }, 1500); 
+});
