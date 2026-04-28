@@ -2629,12 +2629,12 @@ html {
     .main-container {
         position: relative !important;
         top: auto !important;
-        left: 85px !important;
+        left: 65px !important;
 
         /* Scale to phone width */
         width: 58% !important;
         max-width: 360px !important;
-        height: 200px !important;       /* compact but tall enough for content */
+        height: 190px !important;       /* compact but tall enough for content */
 
         margin: 14px auto 28px auto !important;
         box-sizing: border-box !important;
