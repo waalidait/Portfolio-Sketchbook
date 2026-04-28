@@ -297,5 +297,5 @@ window.addEventListener('load', function() {
         setTimeout(() => {
             loader.style.display = 'none';
         }, 500); 
-    }, 1500); 
+    }, 1000); 
 });

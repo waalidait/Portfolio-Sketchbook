@@ -2283,31 +2283,7 @@ html {
    MOBILE  ≤ 768px   ALL FIVE FIXES LIVE HERE
 ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-#loader {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 100vw !important;
-        /* Dynamic Viewport Height هو السر باش تشد الشاشة كاملة */
-        height: 100dvh !important; 
-        background: #FDD336 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        z-index: 99999 !important;
-        /* أنميشن الاختفاء */
-        transition: opacity 0.5s ease-out, visibility 0.5s !important;
-    }
 
-    /* كلاس غانزيدوه بـ JS باش يغبر اللودر */
-    #loader.fade-out {
-        opacity: 0 !important;
-        visibility: hidden !important;
-    }
-}
     /* ── Base: stop horizontal overflow ── */
     html, body { overflow-x: hidden; }
     body        { display: block !important; }
@@ -2469,7 +2445,7 @@ html {
        so we reposition it relative to the page flow */
      .job {
     position: absolute !important;
-    top: -1900px !important; 
+    top: -2250px !important; 
     left: 65% !important;
     transform: translateX(-50%) rotate(-3deg) !important;
     
@@ -2606,11 +2582,24 @@ html {
 
     /* ── About label ── */
     .about {
+        /* كنردوه Block باش يقدر يشد العرض كامل ويتصنطر */
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        
+        /* التموضع */
         position: relative !important;
         top: auto !important;
-        left: auto !important;
-        display: inline-block !important;
-        margin: 20px 0 10px 0 !important;
+        left: 0 !important;
+        
+        /* الحجم والشكل */
+        font-size: 32px !important; /* حجم كبير وباين */
+        font-weight: 800 !important; 
+        text-transform: uppercase; /* اختياري: باش يجي بحال العناوين الكبار */
+        
+        /* المسافات */
+        margin: 30px 0 15px 0 !important;
+        padding: 0 !important;
     }
 
     /* ── About text box ── */
@@ -2669,6 +2658,28 @@ html {
         transform: none !important;
         transition: none !important;
     }
+    .map-back {
+    /* ... الكود القديم ديالك (الخلفية والسنطراج) ... */
+    
+    display: block !important; /* كنبدلو flex لـ block باش يخدم scroll مزيان */
+    overflow-y: auto !important; /* هادي هي اللي كتدير الـ Scroll لعمودي */
+    max-height: 100%; /* باش ما يخرجش على الكارط */
+    padding: 20px 15px !important; /* اتساع لداخل */
+    
+    /* ستايل باش نخبيو السكرول بار فـ Chrome/Safari باش يبقى المنظر نقي */
+    scrollbar-width: thin;
+    scrollbar-color: #b22222 transparent;
+}
+
+/* تحسين شكل الـ Scrollbar لـ Chrome و Edge */
+.map-back::-webkit-scrollbar {
+    width: 5px;
+}
+
+.map-back::-webkit-scrollbar-thumb {
+    background-color: #b22222;
+    border-radius: 10px;
+}
     .main-container.show-up {
         opacity: 1 !important;
         transform: none !important;
@@ -2700,13 +2711,24 @@ html {
 
     /* ── Skill badge ── */
     .skill-badge {
+        /* كنردوه Block باش يقدر يشد العرض كامل ويتصنطر */
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        
+        /* التموضع */
         position: relative !important;
         top: auto !important;
-        display: inline-block !important;
-        margin: 18px 0 12px 0 !important;
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
+        left: 0 !important;
+        
+        /* الحجم والشكل */
+        font-size: 32px !important; /* حجم كبير وباين */
+        font-weight: 800 !important; 
+        text-transform: uppercase; /* اختياري: باش يجي بحال العناوين الكبار */
+        
+        /* المسافات */
+        margin: 30px 0 15px 0 !important;
+        padding: 0 !important;
     }
     .skill-badge.active { opacity: 1 !important; transform: none !important; }
 
@@ -2763,32 +2785,7 @@ html {
         text-align: left !important;
     }
 
-    /* 2-over-1 grid */
-    .scrapbook-row {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: auto auto !important;
-        gap: 40px 16px !important;
-        margin-top: 36px !important;
-        padding-left: 0 !important;
-        justify-items: center !important;
-    }
-
-    /* Third card spans full width → centres itself */
-    .scrap-item:nth-child(3) {
-        grid-column: 1 / -1 !important;
-        justify-self: center !important;
-    }
-
-    .scrap-card   { width: 135px !important; height: 125px !important; }
-    .scrap-card i { font-size: 2.6rem !important; }
-    .social-label { font-size: 0.82rem !important; }
-
-    .tape {
-        top: -12px !important;
-        width: 78px !important;
-        height: 26px !important;
-    }
+    
 
 
     /* ── Footer ── */
@@ -2809,8 +2806,47 @@ html {
         flex-wrap: wrap !important;
         gap: 14px !important;
     }
-
-
+    .section-header{
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        
+        /* التموضع */
+        position: relative !important;
+        top: auto !important;
+        left: 0 !important;
+        
+        /* الحجم والشكل */
+        font-size: 32px !important; /* حجم كبير وباين */
+        font-weight: 800 !important; 
+        text-transform: uppercase; /* اختياري: باش يجي بحال العناوين الكبار */
+        
+        /* المسافات */
+        margin: 30px 0 15px 0 !important;
+        padding: 0 !important;
+    }
+    .get-in-touch-badge{
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        
+        /* التموضع */
+        position: relative !important;
+        top: auto !important;
+        left: 0 !important;
+        
+        /* الحجم والشكل */
+        font-size: 32px !important; /* حجم كبير وباين */
+        font-weight: 800 !important; 
+        text-transform: uppercase; /* اختياري: باش يجي بحال العناوين الكبار */
+        
+        /* المسافات */
+        margin: 30px 0 15px 0 !important;
+        padding: 0 !important;
+        margin-top: 15px;
+    }
+}
+ 
 
 /* ──────────────────────────────────────────────────────────────
    VERY SMALL PHONES  ≤ 400px
@@ -2825,4 +2861,145 @@ html {
     .floating-arrow      { width: 40px !important; }
     .get-in-touch-extra  { font-size: 0.75rem !important; padding: 6px 10px !important; }
     .main-container      { height: 220px !important; }
+}
+
+@media (max-width: 768px) {
+    #loader {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        /* Dynamic Viewport Height هو السر باش تشد الشاشة كاملة */
+        height: 100dvh !important; 
+        background: #FDD336 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 99999 !important;
+        /* أنميشن الاختفاء */
+        transition: opacity 0.5s ease-out, visibility 0.5s !important;
+    }
+
+    /* كلاس غانزيدوه بـ JS باش يغبر اللودر */
+    #loader.fade-out {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+
+/* ================================================================
+   SCRAPBOOK ROW — Mobile Refinement
+   Replace the previous scrapbook-row block inside your
+   @media (max-width: 768px) with this one.
+   ================================================================ */
+
+@media (max-width: 768px) {
+
+    /* ── 1. LAYOUT: single column, full-bleed ── */
+    .scrapbook-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;       /* children expand to full width */
+        gap: 60px;                  /* breathing room between tape+card combos */
+        margin-top: 40px;
+        padding: 0;                 /* flush with parent edges */
+        width: 100%;
+    }
+
+    /* Reset any previous grid overrides from v3 */
+    .scrap-item:nth-child(3) {
+        grid-column: unset;
+        justify-self: unset;
+    }
+
+    /* ── 2. SCRAP-ITEM: full width, relative for tape anchor ── */
+    .scrap-item {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;        /* tape stays centred above card */
+        padding-top: 20px;          /* space for tape to hang above */
+    }
+
+    /* ── 3. TAPE: centred, overlapping the top edge ── */
+    .tape {
+        position: absolute;
+        top: 0;                     /* sits at the top of .scrap-item's padding space */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 32px;
+        opacity: 0.65;
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    /* Keep individual tape rotations intact */
+    .yellow-tape { background: #FDD336; transform: translateX(-50%) rotate(-6deg); }
+    .blue-tape   { background: #5BD8EE; transform: translateX(-50%) rotate(4deg);  }
+    .green-tape  { background: #4ADE80; transform: translateX(-50%) rotate(-3deg); }
+
+    /* ── 4. SCRAP-CARD: full-bleed, no side borders/shadows ── */
+    .scrap-card {
+        width: 100% !important;
+        height: 140px !important;
+        box-sizing: border-box;
+
+        /* Keep top & bottom borders, remove left & right */
+        border-top: 4px solid #000 !important;
+        border-bottom: 4px solid #000 !important;
+        border-left: none !important;
+        border-right: none !important;
+
+        /* Remove side shadow — keep only a subtle bottom shadow */
+        box-shadow: 0 6px 0 #000 !important;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-decoration: none;
+        color: #000;
+
+        /* Keep the slight rotation for sketchbook feel, but subtle */
+        transform: rotate(0deg) !important;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    /* Hover: lift slightly, no rotation */
+    .scrap-card:active {
+        transform: translateY(3px) !important;
+        box-shadow: 0 3px 0 #000 !important;
+    }
+
+    /* ── 5. ICONS & LABELS: large, bold, readable ── */
+    .scrap-card i {
+        font-size: 3.2rem !important;
+        line-height: 1;
+    }
+
+    .social-label {
+        font-size: 1.15rem !important;
+        font-weight: 900 !important;
+        font-style: italic;
+        letter-spacing: 0.5px;
+        margin-top: 0;
+    }
+
+    /* ── Dark mode: restore glow shadows on mobile too ── */
+    body.dark-mode .scrap-card {
+        border-top-color: #4a4a4a !important;
+        border-bottom-color: #4a4a4a !important;
+        box-shadow: 0 6px 0 #ff0000, 0 0 20px rgba(255,0,0,0.3) !important;
+    }
+
+    body.dark-mode .yellow-bg { box-shadow: 0 6px 0 #FDD336, 0 0 20px rgba(253,211,54,0.4) !important; }
+    body.dark-mode .blue-bg   { box-shadow: 0 6px 0 #5BD8EE, 0 0 20px rgba(91,216,238,0.4) !important; }
+    body.dark-mode .green-bg  { box-shadow: 0 6px 0 #4ADE80, 0 0 20px rgba(74,222,128,0.4) !important; }
 }
