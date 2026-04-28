@@ -299,3 +299,37 @@ window.addEventListener('load', function() {
         }, 500); 
     }, 1000); 
 });
+
+
+/* ================================================================
+   ADD THIS JS at the bottom of main.js
+   Handles: auto-flip after 3s on mobile + tap to flip manually
+   ================================================================ */
+
+// ── Mobile Flip Card ──
+// Only runs on screens ≤ 768px
+if (window.matchMedia('(max-width: 768px)').matches) {
+    const paper = document.querySelector('.folding-paper');
+
+    if (paper) {
+        // AUTO-FLIP after 3 seconds
+        const autoFlipTimer = setTimeout(() => {
+            paper.classList.add('mobile-flipped');
+        }, 3000);
+
+        // TAP to toggle flip manually
+        paper.addEventListener('click', () => {
+            // If user taps before auto-flip fires, cancel the timer
+            clearTimeout(autoFlipTimer);
+            paper.classList.toggle('mobile-flipped');
+        });
+    }
+}
+
+/*
+  NOTE: The existing desktop observer code that adds `.is-open`
+  will still fire on mobile because it watches .folding-paper.
+  The CSS rule:
+      .folding-paper.is-open { transform: rotateY(0deg) !important; }
+  neutralises it, so the desktop fold won't override our flip.
+*/
