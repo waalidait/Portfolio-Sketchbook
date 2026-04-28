@@ -2542,6 +2542,7 @@ html {
     }
 
     .floating-arrow {
+        margin-top: 10px;
         width: 55px !important;
         height: auto !important;
         transform: rotate(28deg) !important;
@@ -2628,12 +2629,12 @@ html {
     .main-container {
         position: relative !important;
         top: auto !important;
-        left: auto !important;
+        left: 85px !important;
 
         /* Scale to phone width */
-        width: 92% !important;
+        width: 58% !important;
         max-width: 360px !important;
-        height: 260px !important;       /* compact but tall enough for content */
+        height: 200px !important;       /* compact but tall enough for content */
 
         margin: 14px auto 28px auto !important;
         box-sizing: border-box !important;
