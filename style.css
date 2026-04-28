@@ -2425,7 +2425,7 @@ html {
         top: auto !important;
         width: 145px !important;
         height: 145px !important;
-        border-radius: 50% !important;     /* CIRCULAR */
+        border-radius: 9% !important;     /* CIRCULAR */
         object-fit: cover !important;
         display: block !important;
         margin: 0 auto !important;
@@ -2443,16 +2443,22 @@ html {
     /* ── FIX 1b: Ninja sticker — absolute, below avatar ── */
     /* .job is a sibling OUTSIDE .hero-section in the HTML,
        so we reposition it relative to the page flow */
-    .job {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        display: inline-block !important;
-        margin: 10px auto 16px auto !important;
-        z-index: 10 !important;
-        font-size: 14px !important;
-        padding: 6px 14px !important;
-    }
+     .job {
+    position: absolute !important;
+    top: -1900px !important; 
+    left: 65% !important;
+    transform: translateX(-50%) rotate(-3deg) !important;
+    
+    font-size: 12px !important;      /* صغرنا الخط */
+    padding: 2px 6px !important;
+    /* هادو هما اللي كايجمعو الزر */
+    width: auto !important;         /* باش ماياخدش العرض كامل */
+    align-self: center !important;  /* باش ما يتجبدش مع الـ Flex */
+    white-space: nowrap !important; /* باش النص يبقا في سطر واحد */
+    
+    display: inline-block !important;
+    z-index: 99 !important;
+}
 
     /* .fix tape mark — hide it */
     .fix { display: none !important; }
@@ -2494,10 +2500,11 @@ html {
     .linkedin-btn {
         position: relative !important;
         top: auto !important;
-        right: auto !important;
+        right: 100px !important;
         display: inline-flex !important;
         flex-shrink: 0 !important;
     }
+     
 
     /* Wrap them in a centred row using a CSS trick:
        Both buttons get order:1, placed in the flex column.
@@ -2525,8 +2532,8 @@ html {
     .arrow-container {
         order: 2;
         position: relative !important;
-        top: auto !important;
-        right: auto !important;
+        top: -20px !important;
+        right: 35px !important;
         display: inline-flex !important;
         align-items: center !important;
         margin: 14px 4px 0 0 !important;
@@ -2535,18 +2542,18 @@ html {
     }
 
     .floating-arrow {
-        width: 48px !important;
+        width: 55px !important;
         height: auto !important;
-        transform: rotate(-10deg) !important;
+        transform: rotate(28deg) !important;
         animation: bounceUp 2s infinite ease-in-out;
     }
 
     /* GET IN TOUCH sticker — flows immediately after arrow */
     .get-in-touch-extra {
         order: 2;
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
+        position: absolute !important;
+        top: 387px !important;
+        right: 98px !important;
         display: inline-flex !important;
         align-items: center !important;
         margin: 14px 0 0 0 !important;
