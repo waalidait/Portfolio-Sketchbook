@@ -2984,21 +2984,6 @@ html {
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  /* ================================================================
    MOBILE FLIP CARD — Journey Section
    Paste this block at the VERY BOTTOM of responsive-additions.css
@@ -3344,4 +3329,106 @@ html {
         border-color: #ff4d4d !important;
         box-shadow: 3px 3px 0 #ff4d4d !important;
     }
+}
+
+@media (max-width: 768px) {
+    header {
+        display: flex !important;
+        justify-content: space-between !important; /* كيفرق العناصر على الجناب */
+        align-items: center !important;
+        flex-wrap: nowrap !important; /* باش ما يهبطوش لتحت */
+    }
+
+    /* 1. اللوغو يبقى في القنت ليسر */
+    .header {
+        order: 1 !important;
+        margin-right: auto !important; /* كيدفع العناصر الأخرى لليمن */
+    }
+
+    /* 2. بوتون الـ Dark Mode تولي هي الثانية (الوسط) */
+    .icon {
+        order: 2 !important;
+        margin-right: 12px !important; /* شوية الفراغ بينها وبين المينيو */
+        margin-left: 0 !important;
+    }
+
+    /* 3. المينيو (Hamburger) يلصق في القنت ليمن */
+    .mobile-menu-toggle {
+        order: 3 !important;
+        margin-left: 0 !important;
+        display: inline-flex !important;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        /* ضروري يكون relative باش المينيو يتحسب منو */
+        position: sticky !important;
+        top: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        z-index: 1000 !important;
+        height: 60px !important; /* حدد الارتفاع باش المينيو يعرف منين يبدا */
+    }
+
+    /* ستايل خاص لهاد الجملة */
+.map-back p[style*="italic"] {
+    border-top: 1px solid rgba(0,0,0,0.1); /* خط خفيف فوقها */
+    padding-top: 10px;
+    margin-top: 15px !important;
+    letter-spacing: 1px; /* تباعد الحروف كيعطي شكل بروفيسيونيل */
+    opacity: 0.6; /* باهتة شوية باش ما تسرقش العين من المهم */
+}
+    .mobile-nav {
+        /* هادو هما اللي كيهبطوه لتحت */
+        position: absolute !important;
+        top: 100% !important; /* كيبدا من الحافة التحتانية ديال الهيدر */
+        left: 0 !important;
+        width: 100% !important;
+        
+        /* ستايل المينيو ديالك */
+        display: none;
+        flex-direction: column;
+        background-color: var(--about-bg);
+        border: 3px solid var(--text-main);
+        box-shadow: 0 5px 0 var(--text-main); /* حيدنا الـ offset من الجناب باش يجي لاصق */
+        padding: 8px 0;
+        z-index: 999;
+        box-sizing: border-box;
+    }
+
+    .mobile-nav.open {
+        display: flex !important;
+    }
+
+    /* باش نأكدو أن العناصر الفوقانية ما كتحركش */
+    .header, .mobile-menu-toggle, .icon {
+        flex-shrink: 0 !important;
+    }
+}
+
+ body.dark-mode .mobile-nav {
+    background-color: var(--box-bg) !important;
+    /* الإطار الخارجي يولي أحمر */
+    border: 3px solid #d01f1f !important; 
+    box-shadow: 5px 5px 0px #d01f1f !important;
+}
+
+body.dark-mode .mobile-nav a {
+    color: #ffffff !important; /* الكتابة بيضة */
+    /* الخطوط اللي بين Home, About, Skills... تولي بيضة */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+body.dark-mode hr, 
+body.dark-mode .section-divider,
+body.dark-mode .exp-section {
+    /* هادي كترد أي خط فاصل أو إطار لتحت ديال السيكشن بيض */
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* إيلا كنتي داير ستايل الـ dashed اللي هضرنا عليه في الـ CV */
+body.dark-mode .exp-section {
+    border-bottom: 1.5px dashed rgba(255, 255, 255, 0.3) !important;
 }

@@ -333,3 +333,8 @@ if (window.matchMedia('(max-width: 768px)').matches) {
       .folding-paper.is-open { transform: rotateY(0deg) !important; }
   neutralises it, so the desktop fold won't override our flip.
 */
+
+// مثال بسيط
+darkModeButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
