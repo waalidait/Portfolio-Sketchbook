@@ -1,0 +1,709 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walid Terminal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #0d0d0d;
+            --bg2:       #111;
+            --orange:    #ff9d00;
+            --green:     #38ff14;
+            --cyan:      #00e5ff;
+            --yellow:    #ffff00;
+            --red:       #ff4444;
+            --white:     #e8e8e8;
+            --dim:       #555;
+            --dim2:      #333;
+            --font:      'JetBrains Mono', 'Courier New', monospace;
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 15px;
+            line-height: 1.4;
+            overflow: hidden;
+        }
+
+        /* ── CRT scanline overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.06) 2px,
+                rgba(0,0,0,0.06) 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ── Terminal shell ── */
+        .terminal {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        /* ── Top bar ── */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #222;
+            flex-shrink: 0;
+        }
+
+        .dots { display: flex; gap: 8px; align-items: center; }
+        .dot {
+            width: 13px; height: 13px;
+            border-radius: 50%;
+            display: block;
+        }
+        .dot.red    { background: #ff5f56; box-shadow: 0 0 6px #ff5f5680; }
+        .dot.yellow { background: #ffbd2e; box-shadow: 0 0 6px #ffbd2e80; }
+        .dot.green  { background: #27c93f; box-shadow: 0 0 6px #27c93f80; }
+
+        .bar-title {
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 4px;
+        }
+
+        .bar-right {
+            margin-left: auto;
+            color: var(--dim);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* ── Scrollable content area ── */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 24px 28px 12px 28px;
+            scroll-behavior: smooth;
+        }
+
+        .content::-webkit-scrollbar { width: 4px; }
+        .content::-webkit-scrollbar-track { background: transparent; }
+        .content::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+        /* ── ASCII art ── */
+        .ascii-art {
+            color: var(--orange);
+            font-weight: 800;
+            font-size: clamp(7px, 1.05vw, 15px);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            text-shadow: 0 0 20px rgba(255,157,0,0.4);
+            user-select: none;
+            white-space: pre;
+        }
+
+        /* ── Subtitle block ── */
+        .subtitle-block {
+            margin-bottom: 28px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dim2) 20%, var(--dim2) 80%, transparent);
+            margin: 8px 0;
+        }
+
+        .subtitle {
+            color: var(--white);
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-align: center;
+            padding: 4px 0;
+        }
+
+        .roles {
+            color: var(--dim);
+            font-size: 12px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* ── Instructions ── */
+        .instructions {
+            margin-bottom: 32px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .instructions p { color: #666; }
+        .hl-green  { color: var(--green); font-weight: 700; }
+        .hl-orange { color: var(--orange); font-weight: 700; }
+        .hl-cyan   { color: var(--cyan); font-weight: 700; }
+
+        /* ── History ── */
+        #terminal-history { margin-bottom: 6px; }
+
+        .history-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .history-line .h-arrow { color: var(--orange); }
+        .history-line .h-cmd   { color: var(--white); }
+
+        .response {
+            color: #aaa;
+            margin-bottom: 18px;
+            padding-left: 4px;
+            font-size: 14px;
+        }
+
+        /* ── Input line ── */
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 2px 0 2px 0;
+            flex-shrink: 0;
+        }
+
+        .prompt-arrow {
+            color: var(--orange);
+            font-size: 18px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        #user-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--orange);
+            font-family: var(--font);
+            font-size: 15px;
+            font-weight: 700;
+            width: 100%;
+            caret-color: var(--orange);
+        }
+
+        .blink-cursor {
+            display: inline-block;
+            width: 9px; height: 16px;
+         
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+            flex-shrink: 0;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ── Sticky input bar at bottom ── */
+        .input-bar {
+            padding: 10px 28px;
+            background: #111;
+            border-top: 1px solid #222;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ═══════════════════════════════════
+           HELP SECTION
+        ═══════════════════════════════════ */
+        .help-block { font-size: 14px; line-height: 1; }
+
+        .help-title {
+            color: var(--orange);
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .section-label {
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 10px 0 4px 0;
+            opacity: 0.8;
+        }
+
+        .cmd-grid {
+            display: grid;
+            grid-template-columns: 16px 110px 1fr;
+            row-gap: 2px;
+            column-gap: 0;
+            align-items: start;
+        }
+
+        .cmd-bullet { color: var(--green); font-weight: 800; }
+        .cmd-name   { color: var(--green); font-weight: 700; padding-right: 8px; }
+        .cmd-desc   { color: var(--white); }
+
+        /* ═══════════════════════════════════
+           CLOUD SECTION
+        ═══════════════════════════════════ */
+        .cloud-block { font-size: 14px; }
+
+        .cloud-ascii {
+            color: var(--cyan);
+            font-size: 13px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0,229,255,0.5);
+            white-space: pre;
+        }
+
+        .cloud-title {
+            color: var(--cyan);
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .cloud-grid {
+            display: grid;
+            grid-template-columns: 14px 130px 1fr;
+            row-gap: 3px;
+            align-items: start;
+        }
+
+        .cloud-bullet  { color: var(--yellow); }
+        .cloud-label   { color: var(--yellow); font-weight: 700; }
+        .cloud-value   { color: var(--white); }
+        .cloud-status  { color: var(--green); font-weight: 700;
+                         text-shadow: 0 0 8px rgba(56,255,20,0.5); }
+
+        /* ═══════════════════════════════════
+           ABOUT / SKILLS / etc
+        ═══════════════════════════════════ */
+        .section-block { font-size: 14px; line-height: 1.6; }
+
+        .sec-title {
+            color: var(--orange);
+            font-weight: 800;
+            font-size: 14px;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(56,255,20,0.1);
+            border: 1px solid rgba(56,255,20,0.3);
+            color: var(--green);
+            font-size: 12px;
+            padding: 1px 8px;
+            margin: 2px 3px 2px 0;
+            border-radius: 2px;
+        }
+
+        .tag.cyan {
+            background: rgba(0,229,255,0.1);
+            border-color: rgba(0,229,255,0.3);
+            color: var(--cyan);
+        }
+
+        .tag.orange {
+            background: rgba(255,157,0,0.1);
+            border-color: rgba(255,157,0,0.3);
+            color: var(--orange);
+        }
+
+        .exp-entry { margin-bottom: 10px; }
+        .exp-role  { color: var(--cyan); font-weight: 700; }
+        .exp-date  { color: var(--dim); font-size: 12px; margin-left: 6px; }
+        .exp-desc  { color: #888; padding-left: 16px; }
+
+        .contact-row { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
+        .contact-icon { color: var(--yellow); width: 20px; }
+        .contact-link { color: var(--cyan); }
+
+        /* ═══ error ═══ */
+        .err-line { color: var(--red); }
+        .err-hint { color: #555; }
+
+        /* ── About Terminal Style ── */
+.terminal-about {
+    font-family: var(--font);
+    max-width: 650px;
+}
+
+.about-header {
+    color: var(--orange);
+    font-weight: 800;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.about-box {
+    border: 1px solid var(--orange);
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    color: var(--white);
+    line-height: 1.5;
+    border-radius: 4px;
+}
+
+.about-item {
+    margin-bottom: 15px;
+    padding-left: 5px;
+}
+
+.bolt {
+    color: var(--orange);
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.item-title {
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.item-desc {
+    color: #bbb;
+    margin-top: 5px;
+    padding-left: 25px;
+    font-size: 14px;
+}
+
+.about-footer-box {
+    border: 1px solid var(--orange);
+    padding: 10px 15px;
+    margin-top: 25px;
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 4px;
+}
+ 
+/* ── Education Grid Style ── */
+.edu-grid {
+    display: grid;
+    grid-template-columns: 30px 110px 1fr; /* تنظيم المسافات بين الأيقونة، العنوان، والقيمة */
+    row-gap: 12px;
+    margin: 20px 0;
+    padding-left: 5px;
+}
+
+.edu-icon {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.edu-label {
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.edu-val {
+    color: var(--white);
+    font-size: 14px;
+}
+
+/* هاد الكلاص ديجا عندك من الكود اللي قبل، غيخدم ليهم بجوج */
+.about-box, .about-footer-box {
+    border: 1px solid var(--orange);
+    /* باش يجي المربع بحال التصويرة شوية ناقص من الجناب */
+    border-radius: 4px;
+    position: relative;
+}
+
+/* حركة إبداعية: إضافة زوايا للمربعات بحال التصويرة */
+.about-box::after, .about-footer-box::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: 20px;
+    width: 40px;
+    height: 5px;
+    background: var(--bg); /* كيتغلف بلون الخلفية باش يقطع الخط */
+}
+    </style>
+</head>
+<body>
+<div class="terminal">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+        </div>
+        <span class="bar-title">walid@system: ~/cloud</span>
+        <span class="bar-right">SSH • 256-bit enc • v2.4.1</span>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="content" id="content-area">
+
+        <!-- ASCII art -->
+        <pre class="ascii-art">
+██╗    ██╗ █████╗ ██╗     ██╗██████╗ 
+██║    ██║██╔══██╗██║     ██║██╔══██╗
+██║ █╗ ██║███████║██║     ██║██║  ██║
+██║███╗██║██╔══██║██║     ██║██║  ██║
+╚███╔███╔╝██║  ██║███████╗██║██████╔╝
+ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝╚═════╝</pre>
+
+        <!-- Subtitle -->
+        <div class="subtitle-block">
+            <div class="divider"></div>
+            <p class="subtitle">Interactive Terminal Portfolio</p>
+            <p class="roles">Full Stack Developer &nbsp;•&nbsp; Creative Designer &nbsp;•&nbsp; Tech Enthusiast</p>
+            <div class="divider"></div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <p>Type <span class="hl-green">'help'</span> to see available commands</p>
+            <p>Press <span class="hl-orange">'tab'</span> to auto-complete &nbsp;|&nbsp; <span class="hl-cyan">'clear'</span> to reset</p>
+        </div>
+
+        <!-- History output -->
+        <div id="terminal-history"></div>
+
+    </div><!-- /content -->
+
+    <!-- Sticky input bar -->
+    <div class="input-bar">
+        <span class="prompt-arrow">➔</span>
+        <input type="text" id="user-input" autofocus autocomplete="off" spellcheck="false" placeholder="">
+        <span class="blink-cursor"></span>
+    </div>
+
+</div><!-- /terminal -->
+
+<script>
+const input   = document.getElementById('user-input');
+const history = document.getElementById('terminal-history');
+const content = document.getElementById('content-area');
+
+/* ──────────────────────────────────────────────
+   TAB AUTOCOMPLETE
+────────────────────────────────────────────── */
+const ALL_COMMANDS = ['help','about','skills','experience','education','contact','cloud','clear','whoami'];
+
+input.addEventListener('keydown', e => {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        const partial = input.value.toLowerCase().trim();
+        if (!partial) return;
+        const match = ALL_COMMANDS.find(c => c.startsWith(partial));
+        if (match) input.value = match;
+    }
+    if (e.key === 'Enter') handleCommand();
+});
+
+/* ──────────────────────────────────────────────
+   COMMAND RESPONSES
+────────────────────────────────────────────── */
+ /* ──────────────────────────────────────────────
+    COMMAND RESPONSES (UPDATED FOR WALID)
+────────────────────────────────────────────── */
+const RESPONSES = {
+
+    help: `
+<div class="help-block">
+  <p class="help-title">🚀 Available Commands</p>
+  <p class="section-label">General</p>
+  <div class="cmd-grid">
+    <span class="cmd-bullet">•</span><span class="cmd-name">help</span><span class="cmd-desc">Show this help message</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">about</span><span class="cmd-desc">Professional summary</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">whoami</span><span class="cmd-desc">Identity snapshot</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">clear</span><span class="cmd-desc">Reset terminal screen</span>
+  </div>
+  <p class="section-label">Technical</p>
+  <div class="cmd-grid">
+    <span class="cmd-bullet">•</span><span class="cmd-name">skills</span><span class="cmd-desc">Technical expertise</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">experience</span><span class="cmd-desc">Work & self-taught history</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">education</span><span class="cmd-desc">Educational background</span>
+  </div>
+</div>`,
+
+    about: `
+<div class="terminal-about">
+    <p class="about-header">✨ About Me</p>
+    
+    <div class="about-box">
+        Junior Fullstack Developer with a passion for high-fidelity UI and complex backend logic.
+    </div>
+
+    <div class="about-item">
+        <span class="bolt">⚡</span>
+        <span class="item-title">Experience</span>
+        <p class="item-desc">Building scalable web solutions using <span class="hl-orange">PHP, Laravel, and Modern CSS.</span></p>
+    </div>
+
+    <div class="about-item">
+        <span class="bolt">⚡</span>
+        <span class="item-title">Passion</span>
+        <p class="item-desc">Transforming innovative ideas into high-quality applications with <span class="hl-cyan">elegant and efficient code.</span></p>
+    </div>
+
+    <div class="about-item">
+        <span class="bolt">⚡</span>
+        <span class="item-title">Strengths</span>
+        <p class="item-desc">Strong logical thinker with expertise in designing robust, high-performance systems.</p>
+    </div>
+
+    <div class="about-footer-box">
+        Ready to bring your innovative ideas to life! <span class="blink-cursor-small"></span>
+    </div>
+</div>`,
+    whoami: `
+<div class="section-block">
+  <p style="color:var(--orange);font-weight:700">walid</p>
+  <p style="color:#888;font-size:13px;margin-top:4px">uid=1000(walid) gid=1000(fullstack) groups=1000(dev),42(c_programming),777(creative)</p>
+  <p style="color:#666;font-size:13px;margin-top:2px">Status: Building the future of the web from Tangier, Morocco.</p>
+</div>`,
+
+    skills: `
+<div class="section-block">
+  <p class="sec-title">// SKILLS</p>
+  <p style="color:var(--dim);font-size:12px;margin-bottom:6px">Languages & Logic</p>
+  <span class="tag">C</span><span class="tag">PHP 8.x</span><span class="tag">JavaScript (ES6+)</span><span class="tag">SQL</span>
+  <p style="color:var(--dim);font-size:12px;margin:8px 0 6px">Frontend & Creative</p>
+  <span class="tag cyan">Modern CSS</span><span class="tag cyan">Responsive Design</span><span class="tag cyan">Intersection Observer</span>
+  <p style="color:var(--dim);font-size:12px;margin:8px 0 6px">Backend & Frameworks</p>
+  <span class="tag orange">Laravel</span><span class="tag orange">MySQL</span><span class="tag orange">Object Oriented Programming</span>
+</div>`,
+
+    experience: `
+<div class="section-block">
+  <p class="sec-title">// EXPERIENCE</p>
+  <div class="exp-entry">
+    <span class="exp-role">Junior Fullstack Developer</span><span class="exp-date">2026 – Present · Solicode Tangier</span>
+    <p class="exp-desc">Advanced PHP & Laravel development · Real-time Tournament logic systems · High-fidelity creative UI.</p>
+  </div>
+  <div class="exp-entry">
+    <span class="exp-role">Software Developer (Self-Taught)</span><span class="exp-date">2024 – 2025</span>
+    <p class="exp-desc">Mastering HTML5/CSS3 · Deep dive into <span style="color:var(--orange)">C Language</span> & Algorithmic logic.</p>
+  </div>
+  <div class="exp-entry">
+    <span class="exp-role">Frontend Enthusiast (Self-Taught)</span><span class="exp-date">2023</span>
+    <p class="exp-desc">Foundations of Web Development · UI/UX components · Responsive layout structures.</p>
+  </div>
+</div>`,
+
+    education: `
+<div class="terminal-about">
+    <p class="about-header">🎓 Education</p>
+    
+    <div class="about-box">
+        Web & Mobile Development Specialist |
+    </div>
+
+    <div class="edu-grid">
+        <span class="edu-icon">🏛️</span>
+        <span class="edu-label">Institution:</span>
+        <span class="edu-val">Solicode Tangier</span>
+
+        <span class="edu-icon">📅</span>
+        <span class="edu-label">Duration:</span>
+        <span class="edu-val">2025 — 2026</span>
+
+        <span class="edu-icon">📍</span>
+        <span class="edu-label">Location:</span>
+        <span class="edu-val">Tangier, Morocco</span>
+    </div>
+
+    <div class="about-footer-box">
+        Foundation of my software engineering journey |
+    </div>
+</div>`,
+
+    contact: `
+<div class="section-block">
+  <p class="sec-title">// CONTACT</p>
+  <div class="contact-row"><span class="contact-icon">✉</span><span class="contact-link">walid.dev@email.com</span></div>
+  <div class="contact-row"><span class="contact-icon">⌥</span><span class="contact-link">github.com/walid-dev</span></div>
+  <div class="contact-row"><span class="contact-icon">in</span><span class="contact-link">linkedin.com/in/walid</span></div>
+  <p style="color:var(--dim);font-size:12px;margin-top:8px">Location: Tangier, Morocco | Available for: Innovative projects</p>
+</div>`
+};
+/* ──────────────────────────────────────────────
+   COMMAND HANDLER
+────────────────────────────────────────────── */
+function handleCommand() {
+    const raw = input.value.trim();
+    const cmd = raw.toLowerCase();
+    input.value = '';
+    if (!raw) return;
+
+    // Echo user input
+    const echo = document.createElement('div');
+    echo.className = 'history-line';
+    echo.innerHTML = `<span class="h-arrow">➔</span><span class="h-cmd">${escapeHtml(raw)}</span>`;
+    history.appendChild(echo);
+
+    if (cmd === 'clear') {
+        history.innerHTML = '';
+        scrollBottom();
+        return;
+    }
+
+    const out = document.createElement('div');
+    out.className = 'response';
+
+    if (RESPONSES[cmd]) {
+        out.innerHTML = RESPONSES[cmd];
+    } else {
+        out.innerHTML = `<span class="err-line">bash: ${escapeHtml(cmd)}: command not found</span>
+<span class="err-hint">Type <span style="color:var(--green)">'help'</span> to see available commands.</span>`;
+    }
+
+    history.appendChild(out);
+    scrollBottom();
+}
+
+function scrollBottom() {
+    requestAnimationFrame(() => {
+        content.scrollTop = content.scrollHeight;
+    });
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Click anywhere → focus input
+document.addEventListener('click', () => input.focus());
+
+// Initial greeting
+setTimeout(() => {
+    const greet = document.createElement('div');
+    greet.className = 'response';
+    greet.innerHTML = `<span style="color:var(--green)">✓</span> Session started — <span style="color:var(--dim)">type 'help' to explore</span>`;
+    history.appendChild(greet);
+}, 300);
+</script>
+</body>
+</html>
