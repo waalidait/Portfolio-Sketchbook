@@ -445,9 +445,30 @@
     height: 5px;
     background: var(--bg); /* كيتغلف بلون الخلفية باش يقطع الخط */
 }
+
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+}
+.modal-content {
+    background: #121212; margin: 10% auto; padding: 20px;
+    border: 1px solid var(--orange); width: 80%; max-width: 800px;
+    border-radius: 8px; box-shadow: 0 0 20px rgba(255, 165, 0, 0.2);
+}
+.modal-header {
+    display: flex; justify-content: space-between; color: var(--orange);
+    font-weight: bold; border-bottom: 1px solid #333; padding-bottom: 10px;
+}
+.close-btn { cursor: pointer; font-size: 20px; }
+.category-title { color: var(--orange); margin-top: 20px; font-weight: bold; text-transform: lowercase; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 10px; }
+.skill-item { color: #ccc; font-size: 14px; }
+.pct { float: right; color: #888; }
+.bar { background: #222; height: 6px; border-radius: 3px; margin-top: 5px; overflow: hidden; }
+.fill { background: var(--orange); height: 100%; transition: width 1s ease-in-out; }
     </style>
 </head>
-<body>
+ <body>
 <div class="terminal">
 
     <!-- Top bar -->
@@ -501,6 +522,57 @@
 
 </div><!-- /terminal -->
 
+<!-- Skills Modal Visualization -->
+<div id="skillsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span>Skills Visualization</span>
+            <span class="close-btn" onclick="closeSkills()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <!-- Programming -->
+            <p class="category-title">programming</p>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span>C Language</span><span class="pct">90%</span>
+                    <div class="bar"><div class="fill" style="width:90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <span>PHP (Laravel)</span><span class="pct">85%</span>
+                    <div class="bar"><div class="fill" style="width:85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <span>JavaScript</span><span class="pct">80%</span>
+                    <div class="bar"><div class="fill" style="width:80%"></div></div>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <p class="category-title">frontend</p>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span>HTML5/CSS3</span><span class="pct">95%</span>
+                    <div class="bar"><div class="fill" style="width:95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <span>Responsive UI</span><span class="pct">90%</span>
+                    <div class="bar"><div class="fill" style="width:90%"></div></div>
+                </div>
+            </div>
+
+            <!-- Databases -->
+            <p class="category-title">databases</p>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <span>MySQL</span><span class="pct">88%</span>
+                    <div class="bar"><div class="fill" style="width:88%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
 const input   = document.getElementById('user-input');
 const history = document.getElementById('terminal-history');
@@ -509,7 +581,7 @@ const content = document.getElementById('content-area');
 /* ──────────────────────────────────────────────
    TAB AUTOCOMPLETE
 ────────────────────────────────────────────── */
-const ALL_COMMANDS = ['help','about','skills','experience','education','contact','cloud','clear','whoami'];
+ const ALL_COMMANDS = ['help','about','skills','experience','education','contact','cloud','clear','whoami','cd'];
 
 input.addEventListener('keydown', e => {
     if (e.key === 'Tab') {
@@ -522,6 +594,7 @@ input.addEventListener('keydown', e => {
     if (e.key === 'Enter') handleCommand();
 });
 
+
 /* ──────────────────────────────────────────────
    COMMAND RESPONSES
 ────────────────────────────────────────────── */
@@ -529,25 +602,29 @@ input.addEventListener('keydown', e => {
     COMMAND RESPONSES (UPDATED FOR WALID)
 ────────────────────────────────────────────── */
 const RESPONSES = {
-
-    help: `
+  
+   help: `
 <div class="help-block">
   <p class="help-title">🚀 Available Commands</p>
+  
   <p class="section-label">General</p>
   <div class="cmd-grid">
     <span class="cmd-bullet">•</span><span class="cmd-name">help</span><span class="cmd-desc">Show this help message</span>
     <span class="cmd-bullet">•</span><span class="cmd-name">about</span><span class="cmd-desc">Professional summary</span>
     <span class="cmd-bullet">•</span><span class="cmd-name">whoami</span><span class="cmd-desc">Identity snapshot</span>
     <span class="cmd-bullet">•</span><span class="cmd-name">clear</span><span class="cmd-desc">Reset terminal screen</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">cd ..</span><span class="cmd-desc">Exit terminal & back to UI</span>
   </div>
+
   <p class="section-label">Technical</p>
   <div class="cmd-grid">
-    <span class="cmd-bullet">•</span><span class="cmd-name">skills</span><span class="cmd-desc">Technical expertise</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name">skills</span><span class="cmd-desc">Technical expertise (text)</span>
+    <span class="cmd-bullet">•</span><span class="cmd-name" onclick="showSkills()" style="cursor:pointer; text-decoration:none; white-space:nowrap;">skills-visual</span><span class="cmd-desc">Interactive skills dashboard</span>
     <span class="cmd-bullet">•</span><span class="cmd-name">experience</span><span class="cmd-desc">Work & self-taught history</span>
     <span class="cmd-bullet">•</span><span class="cmd-name">education</span><span class="cmd-desc">Educational background</span>
   </div>
 </div>`,
-
+// ... كمل باقي الأوامر (about, skills...) هنا بنفس الطريقة
     about: `
 <div class="terminal-about">
     <p class="about-header">✨ About Me</p>
@@ -652,6 +729,36 @@ const RESPONSES = {
 /* ──────────────────────────────────────────────
    COMMAND HANDLER
 ────────────────────────────────────────────── */
+ function showSkills() {
+    const modal = document.getElementById('skillsModal');
+    if (modal) {
+        modal.style.display = 'block';
+        
+        // Animation خفيفة للـ bars باش يعمرو فاش يتحل الـ popup
+        const fills = modal.querySelectorAll('.fill');
+        fills.forEach(f => {
+            const finalWidth = f.style.width;
+            f.style.width = '0';
+            setTimeout(() => { f.style.width = finalWidth; }, 100);
+        });
+    }
+}
+
+function closeSkills() {
+    const modal = document.getElementById('skillsModal');
+    if (modal) modal.style.display = 'none';
+}
+
+// تسد الـ popup إلا كليكيتي برا المربع
+window.onclick = function(event) {
+    const modal = document.getElementById('skillsModal');
+    if (event.target == modal) {
+        closeSkills();
+    }
+};
+
+// --- الـ Function الرئيسية ديال الـ Terminal ---
+
 function handleCommand() {
     const raw = input.value.trim();
     const cmd = raw.toLowerCase();
@@ -664,12 +771,48 @@ function handleCommand() {
     echo.innerHTML = `<span class="h-arrow">➔</span><span class="h-cmd">${escapeHtml(raw)}</span>`;
     history.appendChild(echo);
 
+    // 1. Exit command
+    if (cmd === 'cd ..' || cmd === 'exit') {
+        const out = document.createElement('div');
+        out.className = 'response';
+        out.innerHTML = `<span style="color:var(--yellow)">Terminating session... redirecting to main portfolio.</span>`;
+        history.appendChild(out);
+        
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1000);
+        return;
+    }
+
+    // 2. Visual Skills Command (كتفتح الـ Popup فقط)
+if (cmd === 'skills-visual' || cmd === 'visual') {
+    showSkills();
+    const out = document.createElement('div');
+    out.className = 'response';
+    out.innerHTML = `<span style="color:var(--green)">Opening visual skills dashboard...</span>`;
+    history.appendChild(out);
+    scrollBottom();
+    return;
+}
+
+// 3. Normal Skills Command (كتطلع النص فقط)
+if (cmd === 'skills') {
+    const out = document.createElement('div');
+    out.className = 'response';
+    out.innerHTML = RESPONSES['skills']; // هنا كياخد النص اللي كاين في RESPONSES
+    history.appendChild(out);
+    scrollBottom();
+    return;
+}
+
+    // 3. Clear command
     if (cmd === 'clear') {
         history.innerHTML = '';
         scrollBottom();
         return;
     }
 
+    // 4. Other Commands from RESPONSES
     const out = document.createElement('div');
     out.className = 'response';
 
@@ -677,7 +820,7 @@ function handleCommand() {
         out.innerHTML = RESPONSES[cmd];
     } else {
         out.innerHTML = `<span class="err-line">bash: ${escapeHtml(cmd)}: command not found</span>
-<span class="err-hint">Type <span style="color:var(--green)">'help'</span> to see available commands.</span>`;
+        <span class="err-hint">Type <span style="color:var(--green)">'help'</span> to see available commands.</span>`;
     }
 
     history.appendChild(out);

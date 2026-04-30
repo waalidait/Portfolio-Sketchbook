@@ -1263,7 +1263,46 @@ header {
     /* خلي واحد 100px ولا 150px فراغ باش ما يجيش لاصق ف السقف */
     scroll-margin-top: 150px; 
 }
+body.dark-mode .folding-paper {
+        border-color: #ff4d4d !important;
+        box-shadow: 8px 8px 0 #ff4d4d !important;
+    }
 
+    body.dark-mode .folding-paper.mobile-flipped {
+        box-shadow: -8px 8px 0 #ff4d4d !important;
+    }
+
+    body.dark-mode .map-back {
+        background-image: linear-gradient(160deg, #1a1a1a 0%, #252018 100%) !important;
+        color: #e8d5b0 !important;
+        scrollbar-color: #ff4d4d #000 !important;
+    }
+
+    body.dark-mode .map-back::-webkit-scrollbar-thumb {
+        background-color: #ff4d4d !important;
+    }
+
+    body.dark-mode .map-back::before {
+        color: #ff4d4d !important;
+        border-bottom-color: #ff4d4d !important;
+    }
+
+    body.dark-mode .exp-title {
+        color: #f0c080 !important;
+        text-decoration-color: #ff4d4d !important;
+    }
+
+    body.dark-mode .exp-date    { color: #c8864a !important; }
+    body.dark-mode .exp-list li { color: #d4b896 !important; }
+    body.dark-mode .exp-list li::marker { color: #ff4d4d !important; }
+    body.dark-mode .exp-section { border-bottom-color: #5d4037 !important; }
+
+    body.dark-mode .map-front::after {
+        background: #2a2a2a !important;
+        color: #ff4d4d !important;
+        border-color: #ff4d4d !important;
+        box-shadow: 3px 3px 0 #ff4d4d !important;
+    }
  .text-box {
     position: absolute;
     top: 850px; /* خليه كيفما نتا محكم فيه */
